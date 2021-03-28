@@ -1,0 +1,30 @@
+<template>
+    <h1>Assets</h1>
+
+    <p>This component demonstrates fetching data from the server.</p>
+
+    <p if.bind="!assets"><em>Loading...</em></p>
+
+    <table if.bind="assets" class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Country of Department</th>
+                <th>Email of Department</th>
+                <th>Purchase Date</th>
+                <th>Is Broken</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr repeat.for="asset of assets">
+                <td>${ asset.assetName }</td>
+                <td>${ asset.department }</td>
+                <td>${ asset.countryOfDepartment }</td>
+                <td>${ asset.eMailAdressOfDepartment }</td>
+                <td>${ asset.purchaseDate }</td>
+                <td>${ asset.broken }</td>
+            </tr>
+        </tbody>
+    </table>
+</template>
