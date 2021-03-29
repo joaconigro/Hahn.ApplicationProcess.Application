@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\assets\asset-details.ts" />
     <None Remove="ClientApp\src\interfaces\asset.ts" />
   </ItemGroup>
 

@@ -54,6 +54,10 @@ namespace Hahn.Web.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var entity = await OnGetting(id);
+            if(entity == null)
+            {
+                return NotFound();
+            }
             return Ok(entity.Adapt<TDto>());
         }
 
@@ -181,14 +185,14 @@ namespace Hahn.Web.Controllers
 
         protected virtual async Task<TEntity> OnDeleting(int id)
         {
-            return await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
+            return await OnGetting(id);
         }
 
 
         #region Helper methods
         protected async Task<bool> Exists(int id)
         {
-            var entity = await UnitOfWork.Repository<TEntity>().GetByIdAsync(id);
+            var entity = await OnGetting(id);
             return entity != null;
         }
 

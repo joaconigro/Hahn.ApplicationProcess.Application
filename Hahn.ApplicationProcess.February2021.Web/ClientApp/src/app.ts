@@ -15,15 +15,7 @@ export class App {
       moduleId: PLATFORM.moduleName('./assets/assets'),
       nav: true,
       title: 'Assets'
-    }, {
-        route: "swagger",
-        name: "swagger",
-        redirect: 'swagger',
-        settings: { icon: "fa fa-plus" },
-        nav: true,
-        title: "Swagger"
-      }
-    ]);
+    }]);
     this.router = router;
   }
 }
