@@ -9,7 +9,7 @@ namespace Hahn.Domain.Models
         public string AssetName { get; set; }
         public Department Department { get; set; }
         public string CountryOfDepartment { get; set; }
-        public string EMailAdressOfDepartment { get; set; }
+        public string EmailAdressOfDepartment { get; set; }
         public DateTime PurchaseDate { get; set; }
         public bool Broken { get; set; }
         #endregion
@@ -22,7 +22,7 @@ namespace Hahn.Domain.Models
             AssetName = asset.AssetName;
             Department = asset.Department;
             CountryOfDepartment = asset.CountryOfDepartment;
-            EMailAdressOfDepartment = asset.EMailAdressOfDepartment;
+            EmailAdressOfDepartment = asset.EmailAdressOfDepartment;
             PurchaseDate = asset.PurchaseDate;
             Broken = asset.Broken;
         }
