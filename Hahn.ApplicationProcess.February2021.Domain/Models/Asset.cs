@@ -5,12 +5,24 @@ namespace Hahn.Domain.Models
 {
     public class Asset : Entity
     {
+        private DateTime purchaseDate;
         #region Properties
         public string AssetName { get; set; }
         public Department Department { get; set; }
         public string CountryOfDepartment { get; set; }
         public string EmailAdressOfDepartment { get; set; }
-        public DateTime PurchaseDate { get; set; }
+        
+        public DateTime PurchaseDate
+        {
+            get => purchaseDate;
+            set
+            {
+                //if (value.Kind == DateTimeKind.Local) {
+                //    value = value.ToUniversalTime();
+                //}
+                purchaseDate = value.ToUniversalTime();
+            }
+        }
         public bool Broken { get; set; }
         #endregion
 

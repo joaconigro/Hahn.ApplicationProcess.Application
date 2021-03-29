@@ -33,12 +33,24 @@ namespace Hahn.Web
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Hahn.Web", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Hahn.Web", 
+                    Version = "v1",
+                    Description = "A simple demo web API for Hahn Softwareentwicklung.",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Joaquín Nigro",
+                        Email = "joaquinnigro@gmail.com",
+                        Url = new Uri("https://github.com/joaconigro"),
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Use under MIT"
+                    }
+                });
             });
 
-            //services.ConfigureSqlServer(Configuration);
             services.ConfigureInMemoryDatabase();
-
 
             services.Configure<ApiBehaviorOptions>(options =>
             {
