@@ -4,6 +4,6 @@
   department: number;
   countryOfDepartment: string;
   emailAdressOfDepartment: string;
-  purchaseDate: Date;
+  purchaseDate: string;
   broken: boolean;
 }

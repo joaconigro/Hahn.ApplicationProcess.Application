@@ -40,6 +40,7 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "aurelia-fetch-client": "^1.8.2",
+    "aurelia-validation": "1.6.0",
     "expose-loader": "^1.0.3",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1",

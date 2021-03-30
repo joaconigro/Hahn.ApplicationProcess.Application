@@ -1,0 +1,89 @@
+﻿<template>
+  <div class="container">
+    <h2>${title}</h2>
+
+    <form role="form" name="form" submit.delegate="save()">
+      <div class="form-row">
+        <!--Asset name-->
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="assetNameErrors">
+          <label for="name">Name</label>
+          <input type="text" id="name" class="form-control" value.bind="asset.assetName & validate" class.bind="assetNameErrors.length ? 'is-invalid' : ''" />
+          <span class="invalid-feedback" repeat.for="errorInfo of assetNameErrors">
+            ${errorInfo.error.message}
+          </span>
+        </div>
+
+        <!--Asset department-->
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="departmentErrors">
+          <label for="department">Department</label>
+          <select class="custom-select" id="department" value.bind="asset.department & validate" class.bind="departmentErrors.length ? 'is-invalid' : ''">
+            <option model.bind="null">Choose...</option>
+            <option repeat.for="department of departments"
+                    model.bind="department.id">
+              ${department.name}
+            </option>
+          </select>
+          <span class="invalid-feedback" repeat.for="errorInfo of departmentErrors">
+            ${errorInfo.error.message}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!--Email of department-->
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="emailAdressOfDepartmentErrors">
+          <label for="email">Email of Department</label>
+          <input type="email" value.bind="asset.emailAdressOfDepartment & validate" id="email" class="form-control" class.bind="emailAdressOfDepartmentErrors.length ? 'is-invalid' : ''" />
+          <span class="invalid-feedback" repeat.for="errorInfo of emailAdressOfDepartmentErrors">
+            ${errorInfo.error.message}
+          </span>
+        </div>
+
+        <!--Country of department-->
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="countryOfDepartmentErrors">
+          <label for="country">Country of Deparment</label>
+          <select class="custom-select" id="country" value.bind="asset.countryOfDepartment & validate" class.bind="countryOfDepartmentErrors.length ? 'is-invalid' : ''">
+            <option model.bind="null">Choose...</option>
+            <option repeat.for="country of countries"
+                    model.bind="country">
+              ${country}
+            </option>
+          </select>
+          <span class="invalid-feedback" repeat.for="errorInfo of countryOfDepartmentErrors">
+            ${errorInfo.error.message}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <!--Purchase Date-->
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="purchaseDateErrors">
+          <label for="date">Purchase Date</label>
+          <input type="text" placeholder="YYYY-MM-DD HH:mm" value.bind="asset.purchaseDate & validate" id="date" class="form-control" class.bind="purchaseDateErrors.length ? 'is-invalid' : ''" />
+          <span class="invalid-feedback" repeat.for="errorInfo of purchaseDateErrors">
+            ${errorInfo.error.message}
+          </span>
+        </div>
+
+        <!--Asset is broken-->
+        <div class="form-group col-sm-6 col-12 d-flex flex-column justify-content-end pb-2">
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="isBrokenCheckbox" checked.bind="asset.broken">
+            <label class="custom-control-label" for="isBrokenCheckbox">Is broken</label>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="row text-center mt-3">
+      <div class="col">
+        <button type="submit" class="btn btn-success mr-1">
+          Save
+        </button>
+        <button type="reset" class="btn btn-secondary" (click)="onCancel()">
+          Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</template>

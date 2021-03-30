@@ -15,7 +15,14 @@ export class App {
       moduleId: PLATFORM.moduleName('./assets/assets'),
       nav: true,
       title: 'Assets'
-    }]);
+    },
+      {
+        route: ['details/:id'],
+        name: 'details',
+        moduleId: PLATFORM.moduleName('./assets/asset-details'),
+        title: 'Details'
+      }
+    ]);
     this.router = router;
   }
 }

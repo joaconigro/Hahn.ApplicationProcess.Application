@@ -17,9 +17,6 @@ namespace Hahn.Domain.Models
             get => purchaseDate;
             set
             {
-                //if (value.Kind == DateTimeKind.Local) {
-                //    value = value.ToUniversalTime();
-                //}
                 purchaseDate = value.ToUniversalTime();
             }
         }

@@ -39,12 +39,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\assets\asset-details.ts" />
+    <None Remove="ClientApp\src\interfaces\apiValidationResult.ts" />
     <None Remove="ClientApp\src\interfaces\asset.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\interfaces\asset.ts" />
+    <None Remove="ClientApp\src\interfaces\departments.ts" />
+    <None Remove="ClientApp\src\resources\http-service.ts" />
+    <None Remove="ClientApp\src\resources\utilities.ts" />
+    <None Remove="ClientApp\src\interfaces\apiValidationResult.ts" />
+    <None Remove="ClientApp\src\interfaces\asset.ts" />
+    <None Remove="ClientApp\src\interfaces\departments.ts" />
+    <None Remove="ClientApp\src\resources\http-service.ts" />
+    <None Remove="ClientApp\src\resources\utilities.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
