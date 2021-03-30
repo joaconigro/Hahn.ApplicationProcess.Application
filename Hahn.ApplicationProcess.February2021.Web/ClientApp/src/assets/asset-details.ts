@@ -4,6 +4,7 @@ import { stringUtcToDate, dateToUtcString } from 'resources/utilities';
 import { IAsset } from '../interfaces/asset';
 import { departments, IDepartment } from '../interfaces/departments';
 import { ValidationControllerFactory, ValidationController, ValidationRules } from 'aurelia-validation';
+import { BootstrapFormRenderer } from '../resources/bootstrap-form-renderer';
 
 @autoinject
 export class AssetDetails {
@@ -16,6 +17,7 @@ export class AssetDetails {
   constructor(private http: HttpService, controllerFactory: ValidationControllerFactory) {
     this.departments = departments();
     this.controller = controllerFactory.createForCurrentScope();
+    this.controller.addRenderer(new BootstrapFormRenderer());
   }
 
   async activate(params: any) {
