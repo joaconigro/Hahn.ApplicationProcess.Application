@@ -1,6 +1,7 @@
 import { Aurelia } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
+import i18next from 'i18next';
 
 export class App {
   router: Router;
@@ -14,17 +15,15 @@ export class App {
       settings: { icon: 'fa fa-list' },
       moduleId: PLATFORM.moduleName('./assets/assets'),
       nav: true,
-      title: 'Assets'
+      title: i18next.t('Assets')
     },
       {
         route: ['details/:id'],
         name: 'details',
         moduleId: PLATFORM.moduleName('./assets/asset-details'),
-        title: 'Details'
+        title: i18next.t('Details')
       }
     ]);
     this.router = router;
   }
 }
-
-///swagger

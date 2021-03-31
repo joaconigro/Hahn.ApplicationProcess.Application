@@ -1,0 +1,15 @@
+﻿<template>
+  <ux-dialog>
+    <ux-dialog-header>
+      <button type="button" click.trigger="controller.cancel()" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 i18n="Confirmation" class="modal-title">Confirmation</h4>
+    </ux-dialog-header>
+    <ux-dialog-body>
+      ${message}
+    </ux-dialog-body>
+    <ux-dialog-footer>
+      <button type="button" i18n="Yes" class="btn btn-danger" click.trigger="controller.ok()">Yes</button>
+      <button type="button" i18n="No" class="btn btn-default" click.trigger="controller.cancel()">No</button>
+    </ux-dialog-footer>
+  </ux-dialog>
+</template>

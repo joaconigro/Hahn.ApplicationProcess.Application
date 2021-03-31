@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -6,8 +6,16 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <RootNamespace>Hahn.Web</RootNamespace>
     <AssemblyName>Hahn.Web</AssemblyName>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+    
+    <TypeScriptExperimentalDecorators>True</TypeScriptExperimentalDecorators>
+    
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
   </PropertyGroup>
 
+  
   <ItemGroup>
     <PackageReference Include="FastExpressionCompiler" Version="3.0.1" />
     <PackageReference Include="Mapster" Version="7.1.5" />
@@ -27,9 +35,6 @@
   <!-- If you used the default angular SPA Template it should come with Tasks setup that get executed when you run it (i.e. before build).
   From the default angular SPA template:-->
 
-  <PropertyGroup>
-    <SpaRoot>ClientApp\</SpaRoot>
-  </PropertyGroup>
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
@@ -39,16 +44,34 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\dialogs\confirm.ts" />
     <None Remove="ClientApp\src\interfaces\apiValidationResult.ts" />
     <None Remove="ClientApp\src\interfaces\asset.ts" />
     <None Remove="ClientApp\src\interfaces\departments.ts" />
     <None Remove="ClientApp\src\resources\http-service.ts" />
+    <None Remove="ClientApp\src\resources\i18n-service.ts" />
     <None Remove="ClientApp\src\resources\utilities.ts" />
     <None Remove="ClientApp\src\interfaces\apiValidationResult.ts" />
     <None Remove="ClientApp\src\interfaces\asset.ts" />
     <None Remove="ClientApp\src\interfaces\departments.ts" />
     <None Remove="ClientApp\src\resources\http-service.ts" />
     <None Remove="ClientApp\src\resources\utilities.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\dialogs\confirm.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\i18n-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\apiValidationResult.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\asset.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\departments.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\http-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\i18n-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\utilities.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\apiValidationResult.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\asset.ts" />
+    <TypeScriptCompile Include="ClientApp\src\interfaces\departments.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\http-service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\resources\utilities.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
@@ -76,4 +99,20 @@
       </ResolvedFileToPublish>
     </ItemGroup>
   </Target>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TypeScriptTarget>ES2017</TypeScriptTarget>
+    <TypeScriptJSXEmit>React</TypeScriptJSXEmit>
+    <TypeScriptModuleKind>AMD</TypeScriptModuleKind>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
+  </PropertyGroup>
 </Project>

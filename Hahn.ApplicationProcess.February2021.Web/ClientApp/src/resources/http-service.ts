@@ -18,4 +18,5 @@ export class HttpService {
     return new Promise<boolean>((resolve, reject) => { resolve(result.isValid) });
   }
 
+
 }

@@ -1,23 +1,23 @@
 <template>
 
   <div class="d-flex justify-content-between align-items-center">
-    <h1>Assets</h1>
-    <button class="btn btn-primary" click.delegate="createAsset()"><i class="fa fa-plus"></i>Add asset</button>
+    <h1 i18n="Assets">Assets</h1>
+    <button class="btn btn-primary" i18n="AddAsset" click.delegate="createAsset()"><i class="fa fa-plus mr-1"></i>Add asset</button>
   </div>
 
-  <p if.bind="!assets"><em>Loading...</em></p>
+  <p i18n="Loading" if.bind="!assets"><em>Loading...</em></p>
 
   <table if.bind="assets" class="table table-hover">
     <thead class="thead-dark">
       <tr>
-        <th>Name</th>
-        <th>Department</th>
-        <th>Country of Department</th>
-        <th>Email of Department</th>
-        <th>Purchase Date</th>
-        <th>Is Broken</th>
-        <th>Edit</th>
-        <th>Remove</th>
+        <th i18n="Name">Name</th>
+        <th i18n="Department">Department</th>
+        <th i18n="CountryOfDepartment">Country of Department</th>
+        <th i18n="EmailOfDepartment">Email of Department</th>
+        <th i18n="PurchaseDate">Purchase Date</th>
+        <th i18n="IsBroken">Is Broken</th>
+        <th i18n="Edit">Edit</th>
+        <th i18n="Remove">Remove</th>
       </tr>
     </thead>
     <tbody>
@@ -29,7 +29,7 @@
         <td>${ asset.purchaseDate }</td>
         <td>${ asset.broken }</td>
         <td><button class="btn btn-sm btn-info mx-1" click.delegate="goToDetails(asset.id)"><i class="fa fa-edit"></i></button></td>
-        <td><button class="btn btn-sm btn-danger mx-1"><i class="fa fa-trash"></i></button></td>
+        <td><button class="btn btn-sm btn-danger mx-1" click.delegate="deleteAsset(asset.id)"><i class="fa fa-trash"></i></button></td>
       </tr>
     </tbody>
   </table>

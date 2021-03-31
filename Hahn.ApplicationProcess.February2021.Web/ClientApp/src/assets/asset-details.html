@@ -6,13 +6,13 @@
       <div class="form-row">
         <!--Asset name-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="assetNameErrors">
-          <label for="name">Name</label>
+          <label i18n="Name" for="name">Name</label>
           <input type="text" id="assetName" class="form-control" value.bind="asset.assetName & validate"/>
         </div>
 
         <!--Asset department-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="departmentErrors">
-          <label for="department">Department</label>
+          <label i18n="Department" for="department">Department</label>
           <select class="custom-select" id="department" value.bind="asset.department & validate">
             <option model.bind="null">Choose...</option>
             <option repeat.for="department of departments"
@@ -26,13 +26,13 @@
       <div class="form-row">
         <!--Email of department-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="emailAdressOfDepartmentErrors">
-          <label for="email">Email of Department</label>
+          <label i18n="EmailOfDepartment" for="email">Email of Department</label>
           <input type="email" value.bind="asset.emailAdressOfDepartment & validate" id="emailAdressOfDepartment" class="form-control"/>         
         </div>
 
         <!--Country of department-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="countryOfDepartmentErrors">
-          <label for="country">Country of Deparment</label>
+          <label i18n="CountryOfDepartment" for="country">Country of Deparment</label>
           <select class="custom-select" id="countryOfDepartment" value.bind="asset.countryOfDepartment & validate">
             <option model.bind="null">Choose...</option>
             <option repeat.for="country of countries"
@@ -46,7 +46,7 @@
       <div class="form-row">
         <!--Purchase Date-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="purchaseDateErrors">
-          <label for="date">Purchase Date</label>
+          <label i18n="PurchaseDate" for="date">Purchase Date</label>
           <input type="text" placeholder="YYYY-MM-DD HH:mm" value.bind="asset.purchaseDate & validate" id="purchaseDate" class="form-control"/>
         </div>
 
@@ -54,7 +54,7 @@
         <div class="form-group col-sm-6 col-12 d-flex flex-column justify-content-end pb-2">
           <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="broken" checked.bind="asset.broken">
-            <label class="custom-control-label" for="broken">Is broken</label>
+            <label i18n="IsBroken" class="custom-control-label" for="broken">Is broken</label>
           </div>
         </div>
       </div>
@@ -62,10 +62,10 @@
 
     <div class="row text-center mt-3">
       <div class="col">
-        <button type="submit" class="btn btn-success mr-1">
-          Save
+        <button i18n="Send" type="submit" class="btn btn-success mr-1">
+          Send
         </button>
-        <button type="reset" class="btn btn-secondary" (click)="onCancel()">
+        <button i18n="Reset" type="reset" class="btn btn-secondary" (click)="onCancel()">
           Reset
         </button>
       </div>

@@ -5,6 +5,7 @@ import { IAsset } from '../interfaces/asset';
 import { departments, IDepartment } from '../interfaces/departments';
 import { ValidationControllerFactory, ValidationController, ValidationRules } from 'aurelia-validation';
 import { BootstrapFormRenderer } from '../resources/bootstrap-form-renderer';
+import { I18NService } from '../resources/i18n-service';
 
 @autoinject
 export class AssetDetails {
@@ -14,7 +15,9 @@ export class AssetDetails {
   countries: string[];
   title: string;
 
-  constructor(private http: HttpService, controllerFactory: ValidationControllerFactory) {
+  constructor(private http: HttpService, controllerFactory: ValidationControllerFactory,
+   readonly i18n: I18NService)
+  {
     this.departments = departments();
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.addRenderer(new BootstrapFormRenderer());
@@ -22,7 +25,7 @@ export class AssetDetails {
 
   async activate(params: any) {
     if (params.id === 'new') {
-      this.title = 'New asset';
+      this.title = this.i18n.tr('NewAsset');
       this.asset = <IAsset> {
         broken: false
       };
@@ -38,25 +41,25 @@ export class AssetDetails {
   public bind() {
     ValidationRules
       .ensure((a: IAsset) => a.assetName)
-        .required().then()
+        .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateName?assetName=${v}`))
-          .withMessageKey('invalidAssetName').on(this.asset)
+          .withMessageKey('InvalidAssetName').on(this.asset)
       .ensure((a: IAsset) => a.department)
-        .required().then()
+        .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateDepartment?department=${v}`))
-          .withMessageKey('invalidDepartment').on(this.asset)
+          .withMessageKey('InvalidDepartment').on(this.asset)
       .ensure((a: IAsset) => a.countryOfDepartment)
-        .required().then()
+        .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateCountry?country=${v}`))
-          .withMessageKey('invalidCountryName').on(this.asset)
+          .withMessageKey('InvalidCountryName').on(this.asset)
       .ensure((a: IAsset) => a.emailAdressOfDepartment)
-        .required().then()
+        .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateEmail?email=${v}`))
-          .withMessageKey('invalidEmailAddress').on(this.asset)
+          .withMessageKey('InvalidEmailAddress').on(this.asset)
       .ensure((a: IAsset) => a.purchaseDate)
-        .required().then()
+        .required().withMessageKey('FieldRequired').then()
         .matches(/^(\d{4}-\d{2}-\d{2} \d{2}:\d{2})$/).then()
         .satisfies(v => this.http.validate(`api/Asset/validateDate?date=${v}`))
-          .withMessageKey('invalidPurchaseDate').on(this.asset);
+      .withMessageKey('InvalidPurchaseDate').on(this.asset);
   }
 }
