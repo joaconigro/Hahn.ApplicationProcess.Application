@@ -20,13 +20,19 @@
   "InvalidDepartment": "El departamento es inválido.",
   "InvalidCountryName": "No se encontró el nombre del país.",
   "InvalidEmailAddress": "El email ingresado es inválido.",
-  "InvalidPurchaseDate": "La fecha no puede ser mas vieja que un año.",
+  "InvalidPurchaseDate": "La fecha ingresada es inválida o tiene más de un año de antigüedad.",
   "FieldRequired": "Por favor, complete este campo.",
+  "InvalidFormat": "Formato inválido.",
   "English": "Inglés",
   "Spanish": "Español",
   "Language": "Idioma",
   "Confirmation": "Confirmación",
   "Yes": "Sí",
   "No": "No",
-  "RemoveAssetMessage": "¿Está seguro de eliminar este activo?"
+  "RemoveAssetMessage": "¿Está seguro de eliminar este activo?",
+  "Department0": "Sede principal",
+  "Department1": "Tienda 1",
+  "Department2": "Tienda 2",
+  "Department3": "Tienda 3",
+  "Department4": "Estación de mantenimiento"
 }

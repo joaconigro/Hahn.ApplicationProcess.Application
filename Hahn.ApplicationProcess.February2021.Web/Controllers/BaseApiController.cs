@@ -4,7 +4,6 @@ using Hahn.Domain.Models;
 using Hahn.Web.Dtos;
 using Hahn.Web.Log;
 using Mapster;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -54,7 +53,7 @@ namespace Hahn.Web.Controllers
         public async Task<IActionResult> Get(int id)
         {
             var entity = await OnGetting(id);
-            if(entity == null)
+            if (entity == null)
             {
                 return NotFound();
             }
@@ -67,7 +66,7 @@ namespace Hahn.Web.Controllers
         }
 
 
-       
+
 
 
 
@@ -75,7 +74,7 @@ namespace Hahn.Web.Controllers
         // PUT: api/[controllerName]/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut, Authorize]
+        [HttpPut]
         public virtual async Task<IActionResult> Put([FromBody] TDto model)
         {
             if (!ModelState.IsValid)
@@ -108,7 +107,7 @@ namespace Hahn.Web.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(model);
         }
 
         protected virtual async Task OnPuting(TDto dto)
@@ -135,31 +134,27 @@ namespace Hahn.Web.Controllers
             }
 
             var entity = await OnPosting(model);
-            if (entity != null)
-            {
-                await UnitOfWork.Repository<TEntity>().AddAsync(entity);
 
-                try
+            await UnitOfWork.Repository<TEntity>().AddAsync(entity);
+
+            try
+            {
+                await UnitOfWork.CommitAsync();
+                return Created($"{GetBaseUrl()}/api/asset/{entity.Id}", entity.Adapt<TDto>());
+            }
+            catch (DbUpdateException)
+            {
+                UnitOfWork.Rollback();
+                var exists = await Exists(model);
+                if (exists)
                 {
-                    await UnitOfWork.CommitAsync();
-                    return Ok(entity.Adapt<TDto>());
+                    return Conflict();
                 }
-                catch (DbUpdateException)
+                else
                 {
-                    UnitOfWork.Rollback();
-                    var exists = await Exists(model);
-                    if (exists)
-                    {
-                        return Conflict();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
             }
-
-            return BadRequest();
         }
 
         protected virtual Task<TEntity> OnPosting(TDto dto)
@@ -169,7 +164,7 @@ namespace Hahn.Web.Controllers
 
         // DELETE: api/[controllerName]/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<TDto>> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var entity = await OnDeleting(id);
             if (entity == null)
@@ -180,7 +175,7 @@ namespace Hahn.Web.Controllers
             UnitOfWork.Repository<TEntity>().Delete(entity);
             await UnitOfWork.CommitAsync();
 
-            return entity.Adapt<TDto>();
+            return Ok(entity.Adapt<TDto>());
         }
 
         protected virtual async Task<TEntity> OnDeleting(int id)

@@ -18,8 +18,8 @@ export class App {
       title: i18next.t('Assets')
     },
       {
-        route: ['details/:id'],
-        name: 'details',
+        route: ['asset/:id'],
+        name: 'asset',
         moduleId: PLATFORM.moduleName('./assets/asset-details'),
         title: i18next.t('Details')
       }

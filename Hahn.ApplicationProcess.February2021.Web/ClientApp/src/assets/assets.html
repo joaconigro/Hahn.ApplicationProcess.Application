@@ -23,7 +23,7 @@
     <tbody>
       <tr repeat.for="asset of assets">
         <td>${ asset.assetName }</td>
-        <td>${ asset.department }</td>
+        <td>${ displayDepartmentText(asset.department) }</td>
         <td>${ asset.countryOfDepartment }</td>
         <td>${ asset.emailAdressOfDepartment }</td>
         <td>${ asset.purchaseDate }</td>

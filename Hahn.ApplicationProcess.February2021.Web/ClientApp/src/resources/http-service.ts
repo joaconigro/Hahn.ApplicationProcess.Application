@@ -18,8 +18,22 @@ export class HttpService {
     return new Promise<boolean>((resolve, reject) => { resolve(result.isValid) });
   }
 
-  async deletItem<T>(url: string) {
+  async deleteItem<T>(url: string) {
     let items = await this.http.delete(url)
+      .then(result => result.json() as Promise<T>);
+    return items;
+  }
+
+  async postItem<T>(url: string, item) {
+    const body = JSON.stringify(item);
+    let items = await this.http.post(url, body)
+      .then(result => result.json() as Promise<T>);
+    return items;
+  }
+
+  async putItem<T>(url: string, item) {
+    const body = JSON.stringify(item);
+    let items = await this.http.put(url, body)
       .then(result => result.json() as Promise<T>);
     return items;
   }

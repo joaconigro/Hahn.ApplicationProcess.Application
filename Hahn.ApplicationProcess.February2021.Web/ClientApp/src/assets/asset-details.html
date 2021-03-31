@@ -47,7 +47,7 @@
         <!--Purchase Date-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="purchaseDateErrors">
           <label i18n="PurchaseDate" for="date">Purchase Date</label>
-          <input type="text" placeholder="YYYY-MM-DD HH:mm" value.bind="asset.purchaseDate & validate" id="purchaseDate" class="form-control"/>
+          <input type="text" keyup.delegate="onTextChanged($event.target.value)" placeholder="YYYY-MM-DD HH:mm" value.bind="asset.purchaseDate & validate" id="purchaseDate" class="form-control"/>
         </div>
 
         <!--Asset is broken-->
@@ -62,10 +62,10 @@
 
     <div class="row text-center mt-3">
       <div class="col">
-        <button i18n="Send" type="submit" class="btn btn-success mr-1">
+        <button i18n="Send" type="submit" click.delegate="send()" class="btn btn-success mr-1">
           Send
         </button>
-        <button i18n="Reset" type="reset" class="btn btn-secondary" (click)="onCancel()">
+        <button i18n="Reset" type="reset" class="btn btn-secondary">
           Reset
         </button>
       </div>

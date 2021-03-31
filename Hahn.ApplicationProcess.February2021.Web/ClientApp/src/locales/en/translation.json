@@ -20,13 +20,19 @@
   "InvalidDepartment": "Invalid department value.",
   "InvalidCountryName": "Country name not found.",
   "InvalidEmailAddress": "Invalid email address format.",
-  "InvalidPurchaseDate": "Date must not be older than one year.",
+  "InvalidPurchaseDate": "The date entered is invalid or is more than one year old.",
   "FieldRequired": "Please, complete this field.",
+  "InvalidFormat": "Invalid format.",
   "English": "English",
   "Spanish": "Spanish",
   "Language": "Language",
   "Confirmation": "Confirmation",
   "Yes": "Yes",
   "No": "No",
-  "RemoveAssetMessage": "Are you sure you want to remove this asset?"
+  "RemoveAssetMessage": "Are you sure you want to remove this asset?",
+  "Department0": "HQ",
+  "Department1": "Store 1",
+  "Department2": "Store 2",
+  "Department3": "Store 3",
+  "Department4": "Maintenance station"
 }
