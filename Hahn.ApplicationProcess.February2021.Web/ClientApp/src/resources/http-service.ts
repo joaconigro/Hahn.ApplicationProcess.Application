@@ -18,5 +18,9 @@ export class HttpService {
     return new Promise<boolean>((resolve, reject) => { resolve(result.isValid) });
   }
 
-
+  async deletItem<T>(url: string) {
+    let items = await this.http.delete(url)
+      .then(result => result.json() as Promise<T>);
+    return items;
+  }
 }

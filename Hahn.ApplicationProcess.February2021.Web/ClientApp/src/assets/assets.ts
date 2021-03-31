@@ -9,13 +9,19 @@ import { Confirm } from '../dialogs/confirm';
 
 @autoinject
 export class Assets {
+  assets: IAsset[];
+  baseUrl = 'api/Asset/';
+
   constructor(private http: HttpService, private router: Router,
     private i18n: I18NService, private dialogService: DialogService) { }
 
-	assets: IAsset[];
 
   async activate() {
-    this.assets = await this.http.getItems<IAsset[]>('api/Asset/all');
+    await this.loadData();
+  }
+
+  private async loadData() {
+    this.assets = await this.http.getItems<IAsset[]>(`${this.baseUrl}all`);
     this.assets.forEach(a => {
       a.purchaseDate = dateToUtcString(a.purchaseDate);
     });
@@ -30,8 +36,13 @@ export class Assets {
   }
 
   deleteAsset(id: number) {
-    this.dialogService.open({ viewModel: Confirm, model: this.i18n.tr('RemoveAssetMessage'), lock: true }).whenClosed(response => {
+    this.dialogService.open({ viewModel: Confirm, model: this.i18n.tr('RemoveAssetMessage'), lock: true }).whenClosed(async response => {
       if (response.wasCancelled) return;
+
+      const asset = await this.http.deletItem<IAsset>(`${this.baseUrl}${id}`);
+      if (asset.id === id) {
+        this.loadData();
+      }
     });
   }
 }
