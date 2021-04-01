@@ -1,4 +1,4 @@
-﻿import { autoinject } from 'aurelia-framework';
+﻿import { autoinject, computedFrom, observable  } from 'aurelia-framework';
 import { HttpService } from 'resources/http-service';
 import { stringUtcToDate, dateToUtcString, mapDepartment } from 'resources/utilities';
 import { IAsset } from '../interfaces/asset';
@@ -7,6 +7,8 @@ import { ValidationControllerFactory, ValidationController, ValidationRules } fr
 import { BootstrapFormRenderer } from '../resources/bootstrap-form-renderer';
 import { I18NService } from '../resources/i18n-service';
 import { Router } from 'aurelia-router';
+import { DialogService } from 'aurelia-dialog';
+import { Confirm } from '../dialogs/confirm';
 
 @autoinject
 export class AssetDetails {
@@ -16,9 +18,16 @@ export class AssetDetails {
   title: string;
   isEditing: boolean;
   baseUrl = 'api/Asset/';
+  disableReset = true;
+  @observable assetName: string = null;
+  @observable broken = false;
+  @observable countryOfDepartment: string = null;
+  @observable department: number = null;
+  @observable purchaseDate: string = null;
+  @observable emailAddressOfDepartment: string = null;
 
   constructor(private http: HttpService, controllerFactory: ValidationControllerFactory,
-    readonly i18n: I18NService, private router: Router)
+    readonly i18n: I18NService, private router: Router, private dialogService: DialogService)
   {
     this.controller = controllerFactory.createForCurrentScope();
     this.controller.addRenderer(new BootstrapFormRenderer());
@@ -36,12 +45,17 @@ export class AssetDetails {
     if (params.id === 'new') {
       this.title = this.i18n.tr('NewAsset');
       this.isEditing = false;
-      this.asset = <IAsset> {
-        broken: false
-      };
+      this.asset = <IAsset>{};
     } else {
       this.asset = await this.http.get<IAsset>(`${this.baseUrl}${params.id}`);
-      this.asset.purchaseDate = dateToUtcString(this.asset.purchaseDate);
+
+      this.assetName = this.asset.assetName;
+      this.broken = this.asset.broken;
+      this.countryOfDepartment = this.asset.countryOfDepartment;
+      this.department = this.asset.department;
+      this.emailAddressOfDepartment = this.asset.emailAddressOfDepartment;
+      this.purchaseDate = dateToUtcString(this.asset.purchaseDate);
+
       this.title = this.asset.assetName;
       this.isEditing = true;
     }
@@ -60,7 +74,13 @@ export class AssetDetails {
   }
 
   async send() {
+    this.asset.assetName = this.assetName;
+    this.asset.broken = this.broken;
+    this.asset.countryOfDepartment = this.countryOfDepartment;
+    this.asset.department = this.department;
+    this.asset.emailAddressOfDepartment = this.emailAddressOfDepartment;
     this.asset.purchaseDate = (stringUtcToDate(this.asset.purchaseDate) as Date)?.toJSON();
+
     if (this.isEditing) {
       const item = await this.http.put<IAsset>(`${this.baseUrl}`, this.asset);
       if (item) {
@@ -74,28 +94,80 @@ export class AssetDetails {
     }
   }
 
+  reset() {
+    this.dialogService.open({ viewModel: Confirm, model: this.i18n.tr('ResetFormMessage'), lock: true }).whenClosed(async response => {
+      if (response.wasCancelled) return;
+
+      this.assetName = null;
+      this.broken = false;
+      this.countryOfDepartment = null;
+      this.department = null;
+      this.emailAddressOfDepartment = null;
+      this.purchaseDate = null;
+      this.controller.reset();
+      this.disableReset = true;
+    });
+  }
+
+  private assetNameChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private countryOfDepartmentChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private departmentChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private emailAddressOfDepartmentChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private brokenChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private purchaseDateChanged(newValue: string, oldValue: string): void {
+    this.updateResetDisabled();
+  }
+
+  private updateResetDisabled(): void {
+    if (this.asset === null) {
+      this.disableReset = true;
+    } else {
+      this.disableReset = (this.assetName === null || this.assetName === '') &&
+        this.broken === false &&
+        (this.countryOfDepartment === null || this.countryOfDepartment === '') &&
+        this.department === null &&
+        (this.emailAddressOfDepartment === null || this.emailAddressOfDepartment === '') &&
+        (this.purchaseDate === null || this.purchaseDate === '');
+    }
+  }
+
   public bind() {
     ValidationRules
-      .ensure((a: IAsset) => a.assetName)
+      .ensure('assetName')
         .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateName?assetName=${v}`))
-          .withMessageKey('InvalidAssetName').on(this.asset)
-      .ensure((a: IAsset) => a.department)
+          .withMessageKey('InvalidAssetName').on(this)
+      .ensure('department')
         .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateDepartment?department=${v}`))
-          .withMessageKey('InvalidDepartment').on(this.asset)
-      .ensure((a: IAsset) => a.countryOfDepartment)
+        .withMessageKey('InvalidDepartment').on(this)
+      .ensure('countryOfDepartment')
         .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateCountry?country=${v}`))
-          .withMessageKey('InvalidCountryName').on(this.asset)
-      .ensure((a: IAsset) => a.emailAdressOfDepartment)
+        .withMessageKey('InvalidCountryName').on(this)
+      .ensure('emailAddressOfDepartment')
         .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateEmail?email=${v}`))
-          .withMessageKey('InvalidEmailAddress').on(this.asset)
-      .ensure((a: IAsset) => a.purchaseDate)
+        .withMessageKey('InvalidEmailAddress').on(this)
+      .ensure('purchaseDate')
         .required().withMessageKey('FieldRequired').then()
         .satisfies(v => this.http.validate(`api/Asset/validateDate?date=${(stringUtcToDate(v) as Date).toJSON()}`))
-        .withMessageKey('InvalidPurchaseDate').on(this.asset);
+        .withMessageKey('InvalidPurchaseDate').on(this);
   }
 
   private checkValue(str: string, max: number, length: number, addZero: boolean): string {

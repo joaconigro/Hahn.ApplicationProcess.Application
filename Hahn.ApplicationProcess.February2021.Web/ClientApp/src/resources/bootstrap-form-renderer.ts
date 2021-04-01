@@ -53,12 +53,11 @@ export class BootstrapFormRenderer {
     }
 
     const internalElement = formGroup.querySelector(`#${result.propertyName}`);
+    if (internalElement.classList.contains('is-invalid')) {
+      internalElement.classList.remove('is-invalid');
+    }
 
     if (result.valid) {
-      if (internalElement.classList.contains('is-invalid')) {
-        internalElement.classList.remove('is-invalid');
-      }
-
       // remove help-block
       const message = formGroup.querySelector(`#validation-message-${result.id}`);
       if (message) {

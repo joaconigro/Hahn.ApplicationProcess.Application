@@ -3,7 +3,7 @@
   assetName: string;
   department: number;
   countryOfDepartment: string;
-  emailAdressOfDepartment: string;
+  emailAddressOfDepartment: string;
   purchaseDate: string;
   broken: boolean;
 }

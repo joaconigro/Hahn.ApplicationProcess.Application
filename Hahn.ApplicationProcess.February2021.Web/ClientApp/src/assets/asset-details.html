@@ -2,18 +2,18 @@
   <div class="container">
     <h2>${title}</h2>
 
-    <form role="form" name="form" submit.delegate="save()">
+    <form role="form" name="form">
       <div class="form-row">
         <!--Asset name-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="assetNameErrors">
           <label i18n="Name" for="name">Name</label>
-          <input type="text" id="assetName" class="form-control" value.bind="asset.assetName & validate"/>
+          <input type="text" id="assetName" class="form-control" value.bind="assetName & validate"/>
         </div>
 
         <!--Asset department-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="departmentErrors">
           <label i18n="Department" for="department">Department</label>
-          <select class="custom-select" id="department" value.bind="asset.department & validate">
+          <select class="custom-select" id="department" value.bind="department & validate">
             <option i18n="Choose" model.bind="null">Choose...</option>
             <option repeat.for="department of departments"
                     model.bind="department.id">
@@ -25,15 +25,15 @@
 
       <div class="form-row">
         <!--Email of department-->
-        <div class="form-group col-sm-6 col-12" validation-errors.bind="emailAdressOfDepartmentErrors">
-          <label i18n="EmailOfDepartment" for="email">Email of Department</label>
-          <input type="email" value.bind="asset.emailAdressOfDepartment & validate" id="emailAdressOfDepartment" class="form-control"/>         
+        <div class="form-group col-sm-6 col-12" validation-errors.bind="emailAddressOfDepartmentErrors">
+          <label i18n="EmailOfDepartment" for="emailAddressOfDepartment">Email of Department</label>
+          <input type="email" value.bind="emailAddressOfDepartment & validate" id="emailAddressOfDepartment" class="form-control"/>         
         </div>
 
         <!--Country of department-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="countryOfDepartmentErrors">
           <label i18n="CountryOfDepartment" for="country">Country of Deparment</label>
-          <select class="custom-select" id="countryOfDepartment" value.bind="asset.countryOfDepartment & validate">
+          <select class="custom-select" id="countryOfDepartment" value.bind="countryOfDepartment & validate">
             <option i18n="Choose" model.bind="null">Choose...</option>
             <option repeat.for="country of countries"
                     model.bind="country">
@@ -47,13 +47,13 @@
         <!--Purchase Date-->
         <div class="form-group col-sm-6 col-12" validation-errors.bind="purchaseDateErrors">
           <label i18n="PurchaseDate" for="date">Purchase Date</label>
-          <input type="text" keyup.delegate="onTextChanged($event.target.value)" placeholder="YYYY-MM-DD HH:mm" value.bind="asset.purchaseDate & validate" id="purchaseDate" class="form-control"/>
+          <input type="text" keyup.delegate="onTextChanged($event.target.value)" placeholder="YYYY-MM-DD HH:mm" value.bind="purchaseDate & validate" id="purchaseDate" class="form-control"/>
         </div>
 
         <!--Asset is broken-->
         <div class="form-group col-sm-6 col-12 d-flex flex-column justify-content-end pb-2">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="broken" checked.bind="asset.broken">
+            <input type="checkbox" class="custom-control-input" id="broken" checked.bind="broken">
             <label i18n="IsBroken" class="custom-control-label" for="broken">Is broken</label>
           </div>
         </div>
@@ -65,7 +65,7 @@
         <button i18n="Send" type="submit" click.delegate="send()" class="btn btn-success mr-1">
           Send
         </button>
-        <button i18n="Reset" type="reset" class="btn btn-secondary">
+        <button i18n="Reset" type="reset" disabled.bind="disableReset" click.delegate="reset()" class="btn btn-secondary">
           Reset
         </button>
       </div>
