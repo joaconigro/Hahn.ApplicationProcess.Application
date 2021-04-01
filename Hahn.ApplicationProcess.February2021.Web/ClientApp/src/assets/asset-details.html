@@ -53,7 +53,7 @@
         <!--Asset is broken-->
         <div class="form-group col-sm-6 col-12 d-flex flex-column justify-content-end pb-2">
           <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" id="broken" checked.bind="broken">
+            <input type="checkbox" class="custom-control-input" id="broken" checked.bind="broken & validate">
             <label i18n="IsBroken" class="custom-control-label" for="broken">Is broken</label>
           </div>
         </div>
@@ -62,10 +62,10 @@
 
     <div class="row text-center mt-3">
       <div class="col">
-        <button i18n="Send" type="submit" click.delegate="send()" class="btn btn-success mr-1">
+        <button i18n="Send" type="submit" disabled.bind="isSendDisabled" click.delegate="send()" class="btn btn-success mr-1">
           Send
         </button>
-        <button i18n="Reset" type="reset" disabled.bind="disableReset" click.delegate="reset()" class="btn btn-secondary">
+        <button i18n="Reset" type="reset" disabled.bind="isResetDisabled" click.delegate="reset()" class="btn btn-secondary">
           Reset
         </button>
       </div>

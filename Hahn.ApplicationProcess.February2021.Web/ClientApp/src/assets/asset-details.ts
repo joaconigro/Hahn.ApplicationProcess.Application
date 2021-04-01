@@ -18,7 +18,8 @@ export class AssetDetails {
   title: string;
   isEditing: boolean;
   baseUrl = 'api/Asset/';
-  disableReset = true;
+  isResetDisabled = true;
+  isSendDisabled = true;
   @observable assetName: string = null;
   @observable broken = false;
   @observable countryOfDepartment: string = null;
@@ -58,6 +59,7 @@ export class AssetDetails {
 
       this.title = this.asset.assetName;
       this.isEditing = true;
+      this.isSendDisabled = false;
     }
     await this.getCountries();
   }
@@ -105,44 +107,64 @@ export class AssetDetails {
       this.emailAddressOfDepartment = null;
       this.purchaseDate = null;
       this.controller.reset();
-      this.disableReset = true;
+      this.updateButtons();
     });
   }
 
   private assetNameChanged(newValue: string, oldValue: string): void {
-    this.updateResetDisabled();
+    this.updateButtons();
   }
 
   private countryOfDepartmentChanged(newValue: string, oldValue: string): void {
-    this.updateResetDisabled();
+    this.updateButtons();
   }
 
   private departmentChanged(newValue: string, oldValue: string): void {
-    this.updateResetDisabled();
+    this.updateButtons();
   }
 
   private emailAddressOfDepartmentChanged(newValue: string, oldValue: string): void {
-    this.updateResetDisabled();
+    this.updateButtons();
   }
 
   private brokenChanged(newValue: string, oldValue: string): void {
-    this.updateResetDisabled();
+    this.updateButtons();
   }
 
   private purchaseDateChanged(newValue: string, oldValue: string): void {
+    this.updateButtons();
+  }
+
+  private updateButtons() {
     this.updateResetDisabled();
+    this.validateWhole();
   }
 
   private updateResetDisabled(): void {
     if (this.asset === null) {
-      this.disableReset = true;
+      this.isResetDisabled = true;
     } else {
-      this.disableReset = (this.assetName === null || this.assetName === '') &&
+      this.isResetDisabled = (this.assetName === null || this.assetName === '') &&
         this.broken === false &&
         (this.countryOfDepartment === null || this.countryOfDepartment === '') &&
         this.department === null &&
         (this.emailAddressOfDepartment === null || this.emailAddressOfDepartment === '') &&
         (this.purchaseDate === null || this.purchaseDate === '');
+    }
+  }
+
+  private validateWhole() {
+    const canValidateAll = (this.assetName !== null && this.assetName !== '') &&
+      (this.countryOfDepartment !== null && this.countryOfDepartment !== '') &&
+      this.department !== null &&
+      (this.emailAddressOfDepartment !== null && this.emailAddressOfDepartment !== '') &&
+      (this.purchaseDate !== null && this.purchaseDate !== '');
+
+    if (canValidateAll) {
+      this.controller?.validate()
+        .then(results => this.isSendDisabled = !results.results.every(result => result.valid));
+    } else {
+      this.isSendDisabled = true;
     }
   }
 
