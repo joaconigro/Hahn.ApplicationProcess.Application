@@ -8,7 +8,7 @@ namespace Hahn.Web.Dtos
         public string AssetName { get; set; }
         public int Department { get; set; }
         public string CountryOfDepartment { get; set; }
-        public string EmailAdressOfDepartment { get; set; }
+        public string EmailAddressOfDepartment { get; set; }
         public DateTime PurchaseDate { get; set; }
         public bool Broken { get; set; }
         #endregion

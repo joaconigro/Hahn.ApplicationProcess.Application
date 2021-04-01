@@ -9,7 +9,11 @@ export class I18NService {
   }
 
   tr(key: string | string[]): string {
-    return this.i18n.tr(key);
+    return this.i18n.tr(key, {defaultValue: ''});
+  }
+
+  hasKey(key: string) : boolean {
+    return this.tr(key).length > 0;
   }
 
   setLocale(locale: string) {

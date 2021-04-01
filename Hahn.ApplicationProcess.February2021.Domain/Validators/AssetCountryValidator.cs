@@ -17,16 +17,18 @@ namespace Hahn.Domain.Validators
             checker = action;
 
             RuleFor(value => value)
+                .NotNull().WithErrorCode("InvalidCountryName")
+                .NotEmpty().WithErrorCode("InvalidCountryName")
                 .CustomAsync(async (v, c, t) =>
                 {
                     var result = await checker;
                     if (result == false)
                     {
-                        c.AddFailure("AssetCountryInvalid", "Value is not a valid country name.");
+                        c.AddFailure("InvalidCountryName", "Value is not a valid country name.");
                     }
                     else if (!result.HasValue)
                     {
-                        c.AddFailure("AssetCountryInvalid", "Country name couldn't be validated.");
+                        c.AddFailure("InvalidCountryName", "Country name couldn't be validated.");
                     }
                 });
         }

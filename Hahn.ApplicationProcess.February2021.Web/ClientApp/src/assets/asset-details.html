@@ -14,7 +14,7 @@
         <div class="form-group col-sm-6 col-12" validation-errors.bind="departmentErrors">
           <label i18n="Department" for="department">Department</label>
           <select class="custom-select" id="department" value.bind="asset.department & validate">
-            <option model.bind="null">Choose...</option>
+            <option i18n="Choose" model.bind="null">Choose...</option>
             <option repeat.for="department of departments"
                     model.bind="department.id">
               ${department.name}
@@ -34,7 +34,7 @@
         <div class="form-group col-sm-6 col-12" validation-errors.bind="countryOfDepartmentErrors">
           <label i18n="CountryOfDepartment" for="country">Country of Deparment</label>
           <select class="custom-select" id="countryOfDepartment" value.bind="asset.countryOfDepartment & validate">
-            <option model.bind="null">Choose...</option>
+            <option i18n="Choose" model.bind="null">Choose...</option>
             <option repeat.for="country of countries"
                     model.bind="country">
               ${country}

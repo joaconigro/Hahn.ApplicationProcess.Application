@@ -10,7 +10,7 @@ namespace Hahn.Domain.Validators
         {
             RuleFor(date => date)
                 .GreaterThan(DateTime.Now.AddYears(-1))
-                .WithErrorCode("AssetPurchaseDateInvalid")
+                .WithErrorCode("InvalidPurchaseDate")
                 .WithMessage("The date can't be older than a year.");
         }
     }

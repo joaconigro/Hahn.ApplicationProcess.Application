@@ -2,7 +2,7 @@
 
 namespace Hahn.Domain.Validators
 {
-    public class AssetIdValidator : AbstractValidator<int?>
+    public class AssetIdValidator : AbstractValidator<int>
     {
         public AssetIdValidator()
         {

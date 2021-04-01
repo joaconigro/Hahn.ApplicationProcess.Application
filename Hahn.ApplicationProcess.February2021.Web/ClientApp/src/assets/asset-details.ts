@@ -40,7 +40,7 @@ export class AssetDetails {
         broken: false
       };
     } else {
-      this.asset = await this.http.getItems<IAsset>(`${this.baseUrl}${params.id}`);
+      this.asset = await this.http.get<IAsset>(`${this.baseUrl}${params.id}`);
       this.asset.purchaseDate = dateToUtcString(this.asset.purchaseDate);
       this.title = this.asset.assetName;
       this.isEditing = true;
@@ -51,7 +51,7 @@ export class AssetDetails {
   async getCountries() {
     let countries = localStorage.getItem('countries');
     if (!countries) {
-      const response = await this.http.getItems<any>('https://restcountries.eu/rest/v2/all');
+      const response = await this.http.get<any>('https://restcountries.eu/rest/v2/all');
       this.countries = response.map(c => c.name);
       localStorage.setItem('countries', JSON.stringify(this.countries));
     } else {
@@ -60,14 +60,14 @@ export class AssetDetails {
   }
 
   async send() {
-    this.asset.purchaseDate = (stringUtcToDate(this.asset.purchaseDate) as Date).toJSON();
+    this.asset.purchaseDate = (stringUtcToDate(this.asset.purchaseDate) as Date)?.toJSON();
     if (this.isEditing) {
-      const item = await this.http.putItem<IAsset>(`${this.baseUrl}`, this.asset);
+      const item = await this.http.put<IAsset>(`${this.baseUrl}`, this.asset);
       if (item) {
         this.router.navigateToRoute('assets');
       }
     } else {
-      const item = await this.http.postItem<IAsset>(`${this.baseUrl}`, this.asset);
+      const item = await this.http.post<IAsset>(`${this.baseUrl}`, this.asset);
       if (item) {
         this.router.navigateToRoute('asset', { id: item.id });
       }

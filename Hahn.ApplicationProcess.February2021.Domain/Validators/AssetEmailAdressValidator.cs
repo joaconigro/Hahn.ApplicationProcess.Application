@@ -7,8 +7,10 @@ namespace Hahn.Domain.Validators
         public AssetEmailAdressValidator()
         {
             RuleFor(value => value)
+                .NotNull().WithErrorCode("InvalidEmailAddress")
+                .NotEmpty().WithErrorCode("InvalidEmailAddress")
                 .EmailAddress()
-                .WithErrorCode("AssetEMailAdressOfDepartmentInvalid")
+                .WithErrorCode("InvalidEmailAddress")
                 .WithMessage("The value isn't a valid email address.");
         }
     }

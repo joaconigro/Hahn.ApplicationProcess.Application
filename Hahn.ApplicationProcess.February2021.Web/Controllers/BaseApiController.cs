@@ -44,7 +44,9 @@ namespace Hahn.Web.Controllers
 
         protected virtual async Task<PagedList<TEntity>> OnGetAll(string orderBy, int pageNumber, int pageSize)
         {
-            return await UnitOfWork.Repository<TEntity>().GetEntitiesAsync(orderBy, pageNumber, pageSize);
+            var entities = await UnitOfWork.Repository<TEntity>().GetEntitiesAsync(orderBy, pageNumber, pageSize);
+            ProcessPagedListHeader(entities, typeof(TEntity).Name);
+            return entities;
         }
 
 
@@ -77,14 +79,11 @@ namespace Hahn.Web.Controllers
         [HttpPut]
         public virtual async Task<IActionResult> Put([FromBody] TDto model)
         {
+            await ValidateAsync(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (model is null)
-            {
-                return BadRequest();
             }
 
             await OnPuting(model);
@@ -123,15 +122,13 @@ namespace Hahn.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TDto model)
         {
+            await ValidateAsync(model);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (model is null)
-            {
-                return BadRequest();
-            }
 
             var entity = await OnPosting(model);
 
@@ -231,6 +228,17 @@ namespace Hahn.Web.Controllers
         protected TDto[] Adapt(IEnumerable<TEntity> entities)
         {
             return entities.Adapt<TDto[]>();
+        }
+
+        protected abstract Task ValidateAsync(TDto dto);
+       
+        protected bool IsNull(TDto dto)
+        {
+            if (dto is null)
+            {
+                ModelState.AddModelError("NullBody", "Body cannot be null.");
+            }
+            return !ModelState.IsValid;
         }
 
         protected string GetBaseUrl()

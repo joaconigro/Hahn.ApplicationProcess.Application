@@ -1,40 +1,73 @@
-﻿import { HttpClient } from 'aurelia-fetch-client';
+﻿import { DialogService } from 'aurelia-dialog';
+import { HttpClient, Interceptor } from 'aurelia-fetch-client';
 import { autoinject } from 'aurelia-framework';
 import { IApiValidationResult } from '../interfaces/apiValidationResult';
+import { Message } from '../dialogs/message';
+import { I18NService } from './i18n-service';
 
 @autoinject
 export class HttpService {
-  constructor(private http: HttpClient) { }
+  private http: HttpClient;
 
+  constructor(private dialogService: DialogService, private i18n: I18NService) {
+    this.http = new HttpClient().configure(config => {
+      config.withInterceptor(new HttpInterceptors(dialogService, i18n));
+    });
+  }
 
-  async getItems<T>(url: string) {
-    let items = await this.http.fetch(url)
-      .then(result => result.json() as Promise<T>);
-    return items;
+  async get<T>(url: string) {
+    return this.fetch<T>(url, 'GET');
   }
 
   async validate(url: string) {
-    let result = await this.getItems<IApiValidationResult>(url);
-    return new Promise<boolean>((resolve, reject) => { resolve(result.isValid) });
+    let result = await this.get<IApiValidationResult>(url);
+    return new Promise<boolean>(resolve => { resolve(result.isValid) });
   }
 
-  async deleteItem<T>(url: string) {
-    let items = await this.http.delete(url)
-      .then(result => result.json() as Promise<T>);
-    return items;
+  async delete<T>(url: string) {
+    return this.fetch<T>(url, 'DELETE');
   }
 
-  async postItem<T>(url: string, item) {
-    const body = JSON.stringify(item);
-    let items = await this.http.post(url, body)
-      .then(result => result.json() as Promise<T>);
-    return items;
+  async post<T>(url: string, item) {
+    return this.fetch<T>(url, 'POST', item);
   }
 
-  async putItem<T>(url: string, item) {
-    const body = JSON.stringify(item);
-    let items = await this.http.put(url, body)
-      .then(result => result.json() as Promise<T>);
-    return items;
+  async put<T>(url: string, item) {
+    return this.fetch<T>(url, 'PUT', item);
+  }
+
+  private async fetch<T>(url: string, method: string, item: any = null): Promise<T> {
+    return await this.http.fetch(url, { method: method, body: item ? JSON.stringify(item) : null })
+      .then(res => res?.json() as Promise<T>);
+  }
+}
+
+@autoinject
+class HttpInterceptors implements Interceptor {
+  constructor(private dialogService: DialogService, private i18n: I18NService) { }
+
+  response(response) {
+    if (response.status < 200 || response.status > 299) {
+      return this.responseError(response);
+    }
+    return response;
+  }
+
+  responseError(error) {
+    error.clone().json().then(r => {
+      let message = this.i18n.tr('CheckErrors');
+      let errors = Object.keys(r).filter(k => this.i18n.hasKey(k)).map(k => this.i18n.tr(k));
+      message += errors.join(", ")
+      this.dialogService.open({
+        viewModel: Message,
+        model: {
+          title: `${this.i18n.tr('Error')} ${error.status}`,
+          message: message
+        },
+        lock: true
+      });
+
+    });
+    return null;
   }
 }

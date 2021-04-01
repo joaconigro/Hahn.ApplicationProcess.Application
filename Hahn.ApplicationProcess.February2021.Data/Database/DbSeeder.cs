@@ -17,7 +17,7 @@ namespace Hahn.Data.Database
                     AssetName = "Awesome Car",
                     Department  = Department.HQ,
                     CountryOfDepartment = "Argentina",
-                    EmailAdressOfDepartment = "my.email@someprovider.com",
+                    EmailAddressOfDepartment = "my.email@someprovider.com",
                     PurchaseDate = DateTime.Now.AddDays(-30)
                 },
                 new Asset
@@ -25,7 +25,7 @@ namespace Hahn.Data.Database
                     AssetName = "My Pro Phone",
                     Department  = Department.Store3,
                     CountryOfDepartment = "Japan",
-                    EmailAdressOfDepartment = "some.email@otherprovider.com",
+                    EmailAddressOfDepartment = "some.email@otherprovider.com",
                     PurchaseDate = DateTime.Now.AddDays(-180),
                     Broken = true
                 }

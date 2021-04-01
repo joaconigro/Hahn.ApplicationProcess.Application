@@ -6,6 +6,10 @@ using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using FluentValidation.AspNetCore;
+using FluentValidation;
+using Hahn.Domain.Models;
+using Hahn.Domain.Validators;
 
 namespace Hahn.Web.Extensions
 {
@@ -30,6 +34,15 @@ namespace Hahn.Web.Extensions
             services.AddScoped<DatabaseContext>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+        }
+
+        /// <summary>
+        /// Configure validators
+        /// </summary>
+        /// <param name="services"></param>
+        public static void ConfigureValidators(this IServiceCollection services)
+        {
+            services.AddMvc().AddFluentValidation();
         }
 
 

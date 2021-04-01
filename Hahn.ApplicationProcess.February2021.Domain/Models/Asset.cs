@@ -10,7 +10,7 @@ namespace Hahn.Domain.Models
         public string AssetName { get; set; }
         public Department Department { get; set; }
         public string CountryOfDepartment { get; set; }
-        public string EmailAdressOfDepartment { get; set; }
+        public string EmailAddressOfDepartment { get; set; }
         
         public DateTime PurchaseDate
         {
@@ -31,7 +31,7 @@ namespace Hahn.Domain.Models
             AssetName = asset.AssetName;
             Department = asset.Department;
             CountryOfDepartment = asset.CountryOfDepartment;
-            EmailAdressOfDepartment = asset.EmailAdressOfDepartment;
+            EmailAddressOfDepartment = asset.EmailAddressOfDepartment;
             PurchaseDate = asset.PurchaseDate;
             Broken = asset.Broken;
         }

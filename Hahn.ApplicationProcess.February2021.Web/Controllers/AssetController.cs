@@ -1,4 +1,6 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using FluentValidation.Results;
 using Hahn.Data.HTTPDataAccess;
 using Hahn.Data.Repositories;
 using Hahn.Domain.Models;
@@ -41,6 +43,10 @@ namespace Hahn.Web.Controllers
         [HttpGet("validateName")]
         public async Task<IActionResult> IsValidAssetName([FromQuery] string assetName)
         {
+            if (string.IsNullOrEmpty(assetName))
+            {
+                return Ok(new ValidationResultDto { IsValid = false, ErrorCode = "InvalidAssetName", ErrorMessage = "The name must have 5 characters length or greater."});
+            }
             var validator = new AssetNameValidator();
             var dto = GetValidationResultDto(await validator.ValidateAsync(assetName));
             return Ok(dto);
@@ -57,6 +63,10 @@ namespace Hahn.Web.Controllers
         [HttpGet("validateEmail")]
         public async Task<IActionResult> IsValidAssetEmailAddress([FromQuery] string email)
         {
+            if (string.IsNullOrEmpty(email))
+            {
+                return Ok(new ValidationResultDto { IsValid = false, ErrorCode = "InvalidEmailAddress", ErrorMessage = "The value isn't a valid email address." });
+            }
             var validator = new AssetEmailAdressValidator();
             var dto = GetValidationResultDto(await validator.ValidateAsync(email));
             return Ok(dto);
@@ -81,10 +91,23 @@ namespace Hahn.Web.Controllers
         [HttpGet("validateCountry")]
         public async Task<IActionResult> IsValidAssetCountry([FromQuery] string country)
         {
+            if (string.IsNullOrEmpty(country))
+            {
+                return Ok(new ValidationResultDto { IsValid = false, ErrorCode = "InvalidCountryName", ErrorMessage = "Value is not a valid country name." });
+            }
             var url = $"https://restcountries.eu/rest/v2/name/{country}?fullText=true";
             var validator = new AssetCountryValidator(HTTPDataAccess.SendRequestAsync(url));
             var dto = GetValidationResultDto(await validator.ValidateAsync(country));
             return Ok(dto);
+        }
+
+        protected override async Task ValidateAsync(AssetDto dto)
+        {
+            if (IsNull(dto)) return;            
+            var url = $"https://restcountries.eu/rest/v2/name/{dto.CountryOfDepartment}?fullText=true";
+            var assetValidator = new AssetValidator(HTTPDataAccess.SendRequestAsync(url));
+            var results = await assetValidator.ValidateAsync(new ValidationContext<Asset>(Adapt(dto)));
+            results.AddToModelState(ModelState, null);
         }
     }
 }

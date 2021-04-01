@@ -2,7 +2,7 @@
 
 namespace Hahn.Domain.Validators
 {
-    public class AssetBrokenValidator : AbstractValidator<bool?>
+    public class AssetBrokenValidator : AbstractValidator<bool>
     {
         public AssetBrokenValidator()
         {

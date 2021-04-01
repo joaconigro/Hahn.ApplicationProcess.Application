@@ -21,10 +21,12 @@ export class Assets {
   }
 
   private async loadData() {
-    this.assets = await this.http.getItems<IAsset[]>(`${this.baseUrl}all`);
-    this.assets.forEach(a => {
-      a.purchaseDate = dateToUtcString(a.purchaseDate);
-    });
+    this.assets = await this.http.get<IAsset[]>(`${this.baseUrl}all`);
+    if (this.assets) {
+      this.assets.forEach(a => {
+        a.purchaseDate = dateToUtcString(a.purchaseDate);
+      });
+    }
   }
 
   displayDepartmentText(value: number): string {
@@ -43,7 +45,7 @@ export class Assets {
     this.dialogService.open({ viewModel: Confirm, model: this.i18n.tr('RemoveAssetMessage'), lock: true }).whenClosed(async response => {
       if (response.wasCancelled) return;
 
-      const asset = await this.http.deleteItem<IAsset>(`${this.baseUrl}${id}`);
+      const asset = await this.http.delete<IAsset>(`${this.baseUrl}${id}`);
       if (asset.id === id) {
         this.loadData();
       }
