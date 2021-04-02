@@ -228,7 +228,7 @@ export class AssetDetails {
         }
       });
 
-      this.asset.purchaseDate = output.join('');
+      this.purchaseDate = output.join('');
     }
   }
 }

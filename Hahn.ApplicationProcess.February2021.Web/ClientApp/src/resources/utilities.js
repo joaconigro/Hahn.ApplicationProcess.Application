@@ -1,7 +1,7 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    exports.mapDepartment = exports.dateToUtcString = exports.stringUtcToDate = void 0;
+    exports.mapDepartment = exports.pad = exports.dateToUtcString = exports.stringUtcToDate = void 0;
     function stringUtcToDate(value) {
         const isoDateFormat = /^(\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})$/;
         if (isoDateFormat.test(value)) {
@@ -18,11 +18,18 @@ define(["require", "exports"], function (require, exports) {
         const isoDateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z)?$/;
         if (isoDateFormat.test(value)) {
             const date = new Date(value);
-            return `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()} ${date.getUTCHours()}:${date.getUTCMinutes()}`;
+            return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1, 2)}-${pad(date.getUTCDate(), 2)} ${pad(date.getUTCHours(), 2)}:${pad(date.getUTCMinutes(), 2)}`;
         }
         return value;
     }
     exports.dateToUtcString = dateToUtcString;
+    function pad(num, size) {
+        let result = num.toString();
+        while (result.length < size)
+            result = '0' + result;
+        return result;
+    }
+    exports.pad = pad;
     function mapDepartment(value, i18n) {
         return i18n.tr(`Department${value}`);
     }

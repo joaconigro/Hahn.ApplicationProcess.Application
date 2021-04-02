@@ -18,9 +18,15 @@ export function dateToUtcString(value): string | any {
 
   if (isoDateFormat.test(value)) {
     const date = new Date(value);
-    return `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()} ${date.getUTCHours()}:${date.getUTCMinutes()}`;
+    return `${date.getUTCFullYear()}-${pad(date.getUTCMonth() + 1, 2)}-${pad(date.getUTCDate(), 2)} ${pad(date.getUTCHours(), 2)}:${pad(date.getUTCMinutes(), 2)}`;
   }
   return value;
+}
+
+export function pad(num: number, size: number): string {
+  let result = num.toString();
+  while (result.length < size) result = '0' + result;
+  return result;
 }
 
 export function mapDepartment(value: number, i18n: I18NService): string {
