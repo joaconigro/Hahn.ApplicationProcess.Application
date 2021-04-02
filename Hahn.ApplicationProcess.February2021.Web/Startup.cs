@@ -1,18 +1,10 @@
-using Hahn.Data.Repositories;
 using Hahn.Web.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Hahn.Web
 {
@@ -26,41 +18,36 @@ namespace Hahn.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //Add the controllers
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "Hahn.Web", 
-                    Version = "v1",
-                    Description = "A simple demo web API for Hahn Softwareentwicklung.",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Joaquín Nigro",
-                        Email = "joaquinnigro@gmail.com",
-                        Url = new Uri("https://github.com/joaconigro"),
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under MIT"
-                    }
-                });
-            });
 
+            //Add Swagger generation
+            services.ConfigureSwaggerGen();
+
+            //Configures de InMemory database
             services.ConfigureInMemoryDatabase();
 
+            //Suppress ModelStateInvalidFilter, so can be manually validated
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
 
+            //Add a logger service
             services.ConfigureLoggerService();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">The IApplicationBuilder.</param>
+        /// <param name="env">The IWebHostEnvironment.</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -70,10 +57,13 @@ namespace Hahn.Web
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hahn.Web v1"));
             }
 
+            //Add first the exception middleware to catch all the exceptions.
             app.ConfigureCustomExceptionMiddleware();
 
+            //Add Http redirection
             app.UseHttpsRedirection();
 
+            //Add File server to serve aurelia SPA files
             app.UseFileServer();
 
             app.UseRouting();
@@ -85,7 +75,7 @@ namespace Hahn.Web
                 endpoints.MapControllers();
             });
 
-
+            //Seed the Db if is development environment.
             if (env.IsDevelopment())
             {
                 app.SeedDbContext();

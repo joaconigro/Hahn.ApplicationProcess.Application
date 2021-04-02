@@ -10,8 +10,6 @@ namespace Hahn.Data.Database
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         { }
 
-
-        #region Methods
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -19,6 +17,5 @@ namespace Hahn.Data.Database
             //Configure BugFeatureRequest stocks table
             builder.Entity<Asset>().ToTable("Assets");
         }
-        #endregion Methods
     }
 }

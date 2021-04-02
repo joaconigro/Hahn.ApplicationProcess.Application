@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Hahn.Data
@@ -16,15 +15,6 @@ namespace Hahn.Data
             if (!(source is IAsyncEnumerable<TSource>))
                 return Task.FromResult(source.ToList());
             return source.ToListAsync();
-        }
-
-        public static Task<TSource[]> ToArrayAsyncSafe<TSource>(this IQueryable<TSource> source)
-        {
-            if (source == null)
-                throw new ArgumentNullException(nameof(source));
-            if (!(source is IAsyncEnumerable<TSource>))
-                return Task.FromResult(source.ToArray());
-            return source.ToArrayAsync();
         }
     }
 }

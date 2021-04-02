@@ -11,7 +11,6 @@ namespace Hahn.Domain.Models
         public Department Department { get; set; }
         public string CountryOfDepartment { get; set; }
         public string EmailAddressOfDepartment { get; set; }
-        
         public DateTime PurchaseDate
         {
             get => purchaseDate;

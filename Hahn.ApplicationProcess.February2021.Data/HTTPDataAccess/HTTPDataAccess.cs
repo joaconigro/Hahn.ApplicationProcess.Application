@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace Hahn.Data.HTTPDataAccess
 {
-    public class HTTPDataAccess
+    /// <summary>
+    /// Defines the <see cref="HttpDataAccess"/> helper class.
+    /// </summary>
+    public static class HttpDataAccess
     {
-        static string ParseQueryParams(IDictionary<string, string> parameters)
+        /// <summary>
+        /// Parse a <see cref="IDictionary<string, string>"/> to create a Url string.
+        /// </summary>
+        /// <param name="parameters">The parameters <see cref="IDictionary{string, string}"/>.</param>
+        internal static string ParseQueryParams(IDictionary<string, string> parameters)
         {
             if (parameters != null && parameters.Any())
             {
@@ -25,6 +32,13 @@ namespace Hahn.Data.HTTPDataAccess
             return string.Empty;
         }
 
+        /// <summary>
+        /// Send a request to the Url, with the parameters and headers passed.
+        /// </summary>
+        /// <param name="url">The url.</param>
+        /// <param name="parameters">The parameters <see cref="IDictionary{string, string}"/>.</param>
+        /// <param name="headers">The headers <see cref="IDictionary{string, string}"/>.</param>
+        /// <returns>The true if the response has a success code (2xx), false if returns a 404, and null otherwise.</returns>
         public static async Task<bool?> SendRequestAsync(string url, IDictionary<string, string> parameters = null, IDictionary<string, string> headers = null)
         {
             //Add paramters to the url
@@ -33,7 +47,7 @@ namespace Hahn.Data.HTTPDataAccess
             try
             {
                 using var client = new HttpClient();
-                
+
                 // Add headers to the http client
                 if (headers != null)
                 {
@@ -63,8 +77,6 @@ namespace Hahn.Data.HTTPDataAccess
             {
                 throw;
             }
-
         }
-
     }
 }

@@ -9,7 +9,7 @@ namespace Hahn.Data.Database
         #region Public Methods
         public static void Seed(DatabaseContext dbContext)
         {
-            //Create some fake assets
+            //Create some fake assets.
             var assets = new List<Asset>
             {
                 new Asset
@@ -31,10 +31,10 @@ namespace Hahn.Data.Database
                 }
             };
 
-            //Add those assets to the db
+            //Add those assets to the db.
             dbContext.Assets.AddRange(assets);
 
-            //Save db changes
+            //Save db changes.
             dbContext.SaveChanges();
         }
         #endregion
