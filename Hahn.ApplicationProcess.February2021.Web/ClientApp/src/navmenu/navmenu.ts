@@ -11,6 +11,7 @@ export class Navmenu {
     this.swagerLink = `${baseUrl}swagger`;
   }
 
+  //Update the locale with the one choosen by the user.
   setLocale(locale: string) {
     this.i18n.setLocale(locale);
   }

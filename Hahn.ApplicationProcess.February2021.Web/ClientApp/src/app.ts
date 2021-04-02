@@ -1,4 +1,3 @@
-import { Aurelia } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 import i18next from 'i18next';

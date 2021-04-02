@@ -2,6 +2,7 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.mapDepartment = exports.pad = exports.dateToUtcString = exports.stringUtcToDate = void 0;
+    //Takes a string with format YYYY-MM-DD HH:mm and returns a Date.
     function stringUtcToDate(value) {
         const isoDateFormat = /^(\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})$/;
         if (isoDateFormat.test(value)) {
@@ -14,6 +15,7 @@ define(["require", "exports"], function (require, exports) {
         return value;
     }
     exports.stringUtcToDate = stringUtcToDate;
+    //Format a Date value to a string YYYY-MM-DD HH:mm.
     function dateToUtcString(value) {
         const isoDateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z)?$/;
         if (isoDateFormat.test(value)) {
@@ -23,6 +25,7 @@ define(["require", "exports"], function (require, exports) {
         return value;
     }
     exports.dateToUtcString = dateToUtcString;
+    //Format a number with leading zeros.
     function pad(num, size) {
         let result = num.toString();
         while (result.length < size)
@@ -30,6 +33,7 @@ define(["require", "exports"], function (require, exports) {
         return result;
     }
     exports.pad = pad;
+    //Returns the Department translation, based on the enum value.
     function mapDepartment(value, i18n) {
         return i18n.tr(`Department${value}`);
     }

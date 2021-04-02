@@ -1,5 +1,6 @@
 ﻿import { I18NService } from "./i18n-service";
 
+//Takes a string with format YYYY-MM-DD HH:mm and returns a Date.
 export function stringUtcToDate(value): Date | any {
   const isoDateFormat = /^(\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})$/;
 
@@ -13,6 +14,7 @@ export function stringUtcToDate(value): Date | any {
   return value;
 }
 
+//Format a Date value to a string YYYY-MM-DD HH:mm.
 export function dateToUtcString(value): string | any {
   const isoDateFormat = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z)?$/;
 
@@ -23,12 +25,14 @@ export function dateToUtcString(value): string | any {
   return value;
 }
 
+//Format a number with leading zeros.
 export function pad(num: number, size: number): string {
   let result = num.toString();
   while (result.length < size) result = '0' + result;
   return result;
 }
 
+//Returns the Department translation, based on the enum value.
 export function mapDepartment(value: number, i18n: I18NService): string {
   return i18n.tr(`Department${value}`);
 }

@@ -1,8 +1,4 @@
-import {
-  ValidationRenderer,
-  RenderInstruction,
-  ValidateResult
-} from 'aurelia-validation';
+import { RenderInstruction, ValidateResult } from 'aurelia-validation';
 
 export class BootstrapFormRenderer {
   render(instruction: RenderInstruction) {
@@ -32,12 +28,12 @@ export class BootstrapFormRenderer {
         internalElement.classList.remove('is-invalid');
       }
     } else {
-      // add the has-error class to the enclosing form-group div
+      //Add the is-invalid class to the enclosing form-group div.
       if(!internalElement.classList.contains('is-invalid')) {
         internalElement.classList.add('is-invalid');
       }
 
-      // add help-block
+      //Add invalid-feedback.
       const message = document.createElement('span');
       message.className = 'invalid-feedback';
       message.textContent = result.message;
@@ -58,26 +54,26 @@ export class BootstrapFormRenderer {
     }
 
     if (result.valid) {
-      // remove help-block
+      //Remove invalid-feedback
       const message = formGroup.querySelector(`#validation-message-${result.id}`);
       if (message) {
         formGroup.removeChild(message);
 
-        // remove the has-error class from the enclosing form-group div
+        // Remove the is-invalid class from the enclosing form-group div
         if (formGroup.querySelectorAll('.help-block.validation-message').length === 0) {
-          formGroup.classList.remove('has-error');
+          formGroup.classList.remove('is-invalid');
         }
       }
     }
 
-    // remove help-block
+    //Remove invalid-feedback.
     const message = formGroup.querySelector(`#validation-message-${result.id}`);
     if (message) {
       formGroup.removeChild(message);
 
-      // remove the has-error class from the enclosing form-group div
+      //Remove the is-invalid class from the enclosing form-group div.
       if (formGroup.querySelectorAll('.help-block.validation-message').length === 0) {
-        formGroup.classList.remove('has-error');
+        formGroup.classList.remove('is-invalid');
       }
     }
   }
