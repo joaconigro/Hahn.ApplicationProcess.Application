@@ -57,6 +57,7 @@ namespace Hahn.Web.Controllers
             var entity = await OnGetting(id);
             if (entity == null)
             {
+                Log.LogInfo($"Trying to get an entity of type {typeof(TEntity).Name} with Id {id} was not found.");
                 return NotFound();
             }
             return Ok(entity.Adapt<TDto>());
@@ -98,6 +99,7 @@ namespace Hahn.Web.Controllers
                 var exists = await Exists(model);
                 if (!exists)
                 {
+                    Log.LogInfo($"Trying to update an entity of type {typeof(TEntity).Name} with Id {model.Id} was not found.");
                     return NotFound();
                 }
                 else
@@ -145,6 +147,7 @@ namespace Hahn.Web.Controllers
                 var exists = await Exists(model);
                 if (exists)
                 {
+                    Log.LogInfo($"Trying to create an entity of type {typeof(TEntity).Name} with Id {model.Id}, but already exist another with same Id.");
                     return Conflict();
                 }
                 else
@@ -166,6 +169,7 @@ namespace Hahn.Web.Controllers
             var entity = await OnDeleting(id);
             if (entity == null)
             {
+                Log.LogInfo($"Trying to delete an entity of type {typeof(TEntity).Name} with Id {id} was not found.");
                 return NotFound();
             }
 
