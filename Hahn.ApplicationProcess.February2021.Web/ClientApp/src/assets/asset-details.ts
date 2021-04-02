@@ -90,7 +90,7 @@ export class AssetDetails {
     this.asset.countryOfDepartment = this.countryOfDepartment;
     this.asset.department = this.department;
     this.asset.emailAddressOfDepartment = this.emailAddressOfDepartment;
-    this.asset.purchaseDate = (stringUtcToDate(this.asset.purchaseDate) as Date)?.toJSON();
+    this.asset.purchaseDate = (stringUtcToDate(this.purchaseDate) as Date)?.toJSON();
 
     if (this.isEditing) {
       //If is editing an old asset, will send a put request, and if success will navigate to Assets page.

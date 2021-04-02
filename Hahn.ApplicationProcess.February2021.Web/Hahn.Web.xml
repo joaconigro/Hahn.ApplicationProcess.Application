@@ -258,6 +258,12 @@
             </summary>
             <param name="services">.</param>
         </member>
+        <member name="M:Hahn.Web.Extensions.StartupExtensions.ConfigureSwaggerGen(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configure Swagger service.
+            </summary>
+            <param name="services">.</param>
+        </member>
         <member name="M:Hahn.Web.Extensions.StartupExtensions.ConfigureValidators(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Configure validators.
