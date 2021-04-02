@@ -11,8 +11,8 @@
 		</button>
 
 		<!--The nav items-->
-		<div class="navbar-collapse collapse" id="navbarNav">
-			<div class="d-flex justify-content-between">
+		<div class="navbar-collapse collapse d-flex justify-content-between" id="navbarNav">
+			<div>
 				<!--The router items-->
 				<ul class="navbar-nav">
 					<li repeat.for="row of router.navigation" class="nav-item ${row.isActive ? 'active' : ''}">
@@ -21,7 +21,9 @@
 						</a>
 					</li>
 				</ul>
+			</div>
 
+			<div class="d-flex justify-content-end">
 				<!--The language combobox-->
 				<div class="dropdown mx-2">
 					<button class="btn btn-secondary dropdown-toggle" i18n="Language" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,7 +36,7 @@
 				</div>
 
 				<!--The Swagger button-->
-				<a href.one-way="swagerLink" class="btn btn-info mx-2" style="height: 38px;">
+				<a href.one-way="swagerLink" class="btn btn-info" style="height: 38px;">
 					Swagger
 				</a>
 			</div>

@@ -1,8 +1,11 @@
+import { autoinject  } from 'aurelia-framework';
 import { Router, RouterConfiguration } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
-import i18next from 'i18next';
+import { I18NService } from './resources/i18n-service';
 
+@autoinject
 export class App {
+  constructor(private i18: I18NService) {}
   router: Router;
 
   configureRouter(config: RouterConfiguration, router: Router) {
@@ -14,13 +17,13 @@ export class App {
       settings: { icon: 'fa fa-list' },
       moduleId: PLATFORM.moduleName('./assets/assets'),
       nav: true,
-      title: i18next.t('Assets')
+      title: this.i18.tr('Assets')
     },
       {
         route: ['asset/:id'],
         name: 'asset',
         moduleId: PLATFORM.moduleName('./assets/asset-details'),
-        title: i18next.t('Details')
+        title: this.i18.tr('Details')
       }
     ]);
     this.router = router;
