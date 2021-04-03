@@ -1,0 +1,8 @@
+version: "3"
+services:
+    hahn:
+        build:
+          context: ../
+          dockerfile: Hahn.ApplicationProcess.February2021.Web/Dockerfile
+        ports:
+            - 8080:80
