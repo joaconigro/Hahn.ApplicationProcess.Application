@@ -9,12 +9,13 @@
             Defines the <see cref="T:Hahn.Web.Controllers.AssetController" />.
             </summary>
         </member>
-        <member name="M:Hahn.Web.Controllers.AssetController.#ctor(Hahn.Data.Repositories.IUnitOfWork,Hahn.Web.Log.ILogManager)">
+        <member name="M:Hahn.Web.Controllers.AssetController.#ctor(Hahn.Data.Repositories.IUnitOfWork,Hahn.Web.Log.ILogManager,Microsoft.Extensions.Localization.IStringLocalizer)">
             <summary>
             Initializes a new instance of the <see cref="T:Hahn.Web.Controllers.AssetController"/> class.
             </summary>
-            <param name="unitOfWork">The unitOfWork<see cref="T:Hahn.Data.Repositories.IUnitOfWork"/>.</param>
-            <param name="log">The log<see cref="T:Hahn.Web.Log.ILogManager"/>.</param>
+            <param name="unitOfWork">The unitOfWork <see cref="T:Hahn.Data.Repositories.IUnitOfWork"/>.</param>
+            <param name="log">The log manager <see cref="T:Hahn.Web.Log.ILogManager"/>.</param>
+            <param name="localizer">The localizer <see cref="T:Microsoft.Extensions.Localization.IStringLocalizer"/>.</param>
         </member>
         <member name="M:Hahn.Web.Controllers.AssetController.GetValidationResultDto(FluentValidation.Results.ValidationResult)">
             <summary>
@@ -89,12 +90,18 @@
             The UnitOfWork property.
             </summary>
         </member>
-        <member name="M:Hahn.Web.Controllers.BaseApiController`2.#ctor(Hahn.Data.Repositories.IUnitOfWork,Hahn.Web.Log.ILogManager)">
+        <member name="P:Hahn.Web.Controllers.BaseApiController`2.Localizer">
+            <summary>
+            The Localizer property.
+            </summary>
+        </member>
+        <member name="M:Hahn.Web.Controllers.BaseApiController`2.#ctor(Hahn.Data.Repositories.IUnitOfWork,Hahn.Web.Log.ILogManager,Microsoft.Extensions.Localization.IStringLocalizer)">
             <summary>
             Initializes a new instance of the <see cref="T:Hahn.Web.Controllers.BaseApiController`2"/> class.
             </summary>
             <param name="unitOfWork">The unitOfWork <see cref="T:Hahn.Data.Repositories.IUnitOfWork"/>.</param>
             <param name="log">The log manager <see cref="T:Hahn.Web.Log.ILogManager"/>.</param>
+            <param name="localizer">The localizer <see cref="T:Microsoft.Extensions.Localization.IStringLocalizer"/>.</param>
         </member>
         <member name="M:Hahn.Web.Controllers.BaseApiController`2.All(System.String,System.Int32,System.Int32)">
             <summary>
@@ -137,7 +144,7 @@
             <param name="dto">The object <see cref="!:TDto"/> that represents the updated object.</param>
             <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
             <response code="200">Entity updated.</response>
-            <response code="400">Entity not found.</response>
+            <response code="400">Entity not found or the Request Body is invalid.</response>
         </member>
         <member name="M:Hahn.Web.Controllers.BaseApiController`2.OnPuting(`1)">
             <summary>
@@ -152,7 +159,7 @@
             <param name="dto">The new <see cref="!:TDto"/> that will be saved.</param>
             <returns>The <see cref="T:System.Threading.Tasks.Task`1"/>.</returns>
             <response code="201">Entity created. The new entity Url is passed in the 'location' header.</response>
-            <response code="400">Found another entity with same Id.</response>
+            <response code="400">Found another entity with same Id or the Request Body is invalid.</response>
         </member>
         <member name="M:Hahn.Web.Controllers.BaseApiController`2.OnPosting(`1)">
             <summary>
@@ -235,7 +242,7 @@
             Check if the Dto if null.
             </summary>
             <param name="dto">The dto<see cref="!:TDto"/>.</param>
-            <returns>Returs true if its null.</returns>
+            <returns>Returs true if it is null.</returns>
         </member>
         <member name="M:Hahn.Web.Controllers.BaseApiController`2.GetBaseUrl">
             <summary>
@@ -264,13 +271,20 @@
             </summary>
             <param name="services">.</param>
         </member>
+        <member name="M:Hahn.Web.Extensions.StartupExtensions.ConfigureJsonTranslations(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Add Json translation capabilities.
+            </summary>
+            <param name="services">.</param>
+            <param name="configuration">.</param>
+        </member>
         <member name="M:Hahn.Web.Extensions.StartupExtensions.ConfigureValidators(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Configure validators.
             </summary>
             <param name="services">.</param>
         </member>
-        <member name="M:Hahn.Web.Extensions.StartupExtensions.ConfigureCustomExceptionMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+        <member name="M:Hahn.Web.Extensions.StartupExtensions.UseCustomExceptionMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             Configure the custom exception middleware.
             </summary>

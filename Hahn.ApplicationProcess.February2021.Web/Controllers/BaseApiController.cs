@@ -5,6 +5,7 @@ using Hahn.Web.Dtos;
 using Hahn.Web.Log;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -29,6 +30,11 @@ namespace Hahn.Web.Controllers
         /// The UnitOfWork property.
         /// </summary>
         protected IUnitOfWork UnitOfWork { get; private set; }
+
+        /// <summary>
+        /// The Localizer property.
+        /// </summary>
+        protected IStringLocalizer Localizer { get; private set; }
         #endregion
 
         #region Constructor
@@ -37,11 +43,13 @@ namespace Hahn.Web.Controllers
         /// </summary>
         /// <param name="unitOfWork">The unitOfWork <see cref="IUnitOfWork"/>.</param>
         /// <param name="log">The log manager <see cref="ILogManager"/>.</param>
-        protected BaseApiController(IUnitOfWork unitOfWork, ILogManager log)
+        /// <param name="localizer">The localizer <see cref="IStringLocalizer"/>.</param>
+        protected BaseApiController(IUnitOfWork unitOfWork, ILogManager log, IStringLocalizer localizer)
         {
             // Instantiate through DI
             UnitOfWork = unitOfWork;
             Log = log;
+            Localizer = localizer;
         }
         #endregion
 
@@ -86,7 +94,7 @@ namespace Hahn.Web.Controllers
             var entity = await OnGetting(id);
             if (entity == null)
             {
-                Log.LogInfo($"Trying to get an entity of type {typeof(TEntity).Name} with Id {id} was not found.");
+                Log.LogInfo(Localizer["GetEntityNotFound", typeof(TEntity).Name, id]);
                 return NotFound();
             }
             return Ok(Adapt(entity));
@@ -108,7 +116,7 @@ namespace Hahn.Web.Controllers
         /// <param name="dto">The object <see cref="TDto"/> that represents the updated object.</param>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         /// <response code="200">Entity updated.</response>
-        /// <response code="400">Entity not found.</response>
+        /// <response code="400">Entity not found or the Request Body is invalid.</response>
         [HttpPut]
         public virtual async Task<IActionResult> Put([FromBody] TDto dto)
         {
@@ -123,8 +131,9 @@ namespace Hahn.Web.Controllers
             var exists = await Exists(dto);
             if (!exists)
             {
-                Log.LogInfo($"Trying to update an entity of type {typeof(TEntity).Name} with Id {dto.Id} was not found.");
-                return BadRequest($"Trying to update an entity of type {typeof(TEntity).Name} with Id {dto.Id} was not found.");
+                var message = Localizer["PutEntityNotFound", typeof(TEntity).Name, dto.Id];
+                Log.LogInfo(message);
+                return BadRequest(message);
             }
 
             //Upadates the old entity.
@@ -162,7 +171,7 @@ namespace Hahn.Web.Controllers
         /// <param name="dto">The new <see cref="TDto"/> that will be saved.</param>
         /// <returns>The <see cref="Task{IActionResult}"/>.</returns>
         /// <response code="201">Entity created. The new entity Url is passed in the 'location' header.</response>
-        /// <response code="400">Found another entity with same Id.</response>
+        /// <response code="400">Found another entity with same Id or the Request Body is invalid.</response>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TDto dto)
         {
@@ -177,8 +186,9 @@ namespace Hahn.Web.Controllers
             var exists = await Exists(dto);
             if (exists)
             {
-                Log.LogInfo($"Trying to create an entity of type {typeof(TEntity).Name} with Id {dto.Id}, but already exist another with same Id.");
-                return BadRequest($"Trying to create an entity of type {typeof(TEntity).Name} with Id {dto.Id}, but already exist another with same Id.");
+                var message = Localizer["PostEntitDuplicatedId", typeof(TEntity).Name, dto.Id];
+                Log.LogInfo(message);
+                return BadRequest(message);
             }
 
             //Create the entity from the Dto.
@@ -191,7 +201,7 @@ namespace Hahn.Web.Controllers
             {
                 //Save the changes.
                 await UnitOfWork.CommitAsync();
-                return Created($"{GetBaseUrl()}api/asset/{entity.Id}", entity.Adapt<TDto>());
+                return Created($"{GetBaseUrl()}api/{typeof(TEntity).Name}/{entity.Id}", entity.Adapt<TDto>());
             }
             catch
             {
@@ -225,7 +235,7 @@ namespace Hahn.Web.Controllers
             var entity = await OnDeleting(id);
             if (entity == null)
             {
-                Log.LogInfo($"Trying to delete an entity of type {typeof(TEntity).Name} with Id {id} was not found.");
+                Log.LogInfo(Localizer["DeleteEntityNotFound", typeof(TEntity).Name, id]);
                 return NotFound();
             }
 
@@ -340,12 +350,12 @@ namespace Hahn.Web.Controllers
         /// Check if the Dto if null.
         /// </summary>
         /// <param name="dto">The dto<see cref="TDto"/>.</param>
-        /// <returns>Returs true if its null.</returns>
+        /// <returns>Returs true if it is null.</returns>
         protected bool IsNull(TDto dto)
         {
             if (dto is null)
             {
-                ModelState.AddModelError("NullBody", "Body cannot be null.");
+                ModelState.AddModelError("NullBody", Localizer["NullBody"]);
             }
             return !ModelState.IsValid;
         }

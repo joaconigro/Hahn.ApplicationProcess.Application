@@ -1,0 +1,15 @@
+{
+  "InvalidAssetId": "Id should not be null.",
+  "InvalidAssetName": "The name must have at least five charcters.",
+  "InvalidDepartment": "Value is not a valid Department enum value.",
+  "InvalidCountryName": "Value is not a valid country name.",
+  "CountryNameCouldNotBeValidated": "Country name couldn't be validated.",
+  "InvalidEmailAddress": "Invalid email address format.",
+  "InvalidPurchaseDate": "The date entered is invalid or is more than one year old.",
+  "InvalidBrokenValue": "Broken property cannot be null.",
+  "NullBody": "Body cannot be null.",
+  "GetEntityNotFound": "Error while trying to get an entity of type {0} with Id {1}. Was not found.",
+  "PutEntityNotFound": "Error while trying to update an entity of type {0} with Id {1}. Was not found.",
+  "PostEntitDuplicatedId": "Error while trying to create an entity of type {0} with Id {1}. Already exist another with same Id.",
+  "DeleteEntityNotFound": "Error while trying to delete an entity of type {0} with Id {1}. Was not found."
+}

@@ -10,8 +10,7 @@ namespace Hahn.Domain.Validators
                 .NotNull().WithErrorCode("InvalidAssetName")
                 .NotEmpty().WithErrorCode("InvalidAssetName")
                 .MinimumLength(5)
-                .WithErrorCode("InvalidAssetName")
-                .WithMessage("The name must have 5 characters length or greater.");
+                .WithErrorCode("InvalidAssetName");
         }
     }
 }

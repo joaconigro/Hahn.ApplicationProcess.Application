@@ -1,4 +1,5 @@
-﻿using FastExpressionCompiler;
+﻿using Askmethat.Aspnet.JsonLocalizer.Extensions;
+using FastExpressionCompiler;
 using FluentValidation.AspNetCore;
 using Hahn.Data.Database;
 using Hahn.Data.Repositories;
@@ -7,11 +8,15 @@ using Hahn.Web.Log;
 using Mapster;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace Hahn.Web.Extensions
 {
@@ -74,6 +79,27 @@ namespace Hahn.Web.Extensions
         }
 
         /// <summary>
+        /// Add Json translation capabilities.
+        /// </summary>
+        /// <param name="services">.</param>
+        /// <param name="configuration">.</param>
+        public static void ConfigureJsonTranslations(this IServiceCollection services, IConfiguration configuration)
+        {
+            var supportedCultures = configuration.GetSection("Localization:SupportedLanguages").Get<string[]>()
+                .Select(lang => new CultureInfo(lang)).ToHashSet();
+            var defaultCulture = new CultureInfo(configuration.GetSection("Localization:DefaultLanguage").Get<string>());
+            var resourcesPath = configuration.GetSection("Localization:ResourcesPath").Get<string>();
+
+            services.AddJsonLocalization(options =>
+            {
+                options.LocalizationMode = Askmethat.Aspnet.JsonLocalizer.JsonOptions.LocalizationMode.I18n;
+                options.ResourcesPath = resourcesPath;
+                options.DefaultCulture = defaultCulture;
+                options.SupportedCultureInfos = supportedCultures;
+            });
+        }
+
+        /// <summary>
         /// Configure validators.
         /// </summary>
         /// <param name="services">.</param>
@@ -86,7 +112,7 @@ namespace Hahn.Web.Extensions
         /// Configure the custom exception middleware.
         /// </summary>
         /// <param name="app">The app<see cref="IApplicationBuilder"/>.</param>
-        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        public static void UseCustomExceptionMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
         }

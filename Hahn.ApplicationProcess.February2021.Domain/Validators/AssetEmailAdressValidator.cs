@@ -10,8 +10,7 @@ namespace Hahn.Domain.Validators
                 .NotNull().WithErrorCode("InvalidEmailAddress")
                 .NotEmpty().WithErrorCode("InvalidEmailAddress")
                 .EmailAddress()
-                .WithErrorCode("InvalidEmailAddress")
-                .WithMessage("The value isn't a valid email address.");
+                .WithErrorCode("InvalidEmailAddress");
         }
     }
 }

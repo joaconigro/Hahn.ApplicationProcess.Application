@@ -1,0 +1,15 @@
+{
+  "InvalidAssetId": "El Id no debe ser nulo.",
+  "InvalidAssetName": "El nombre debe contener al menos cinco caracteres.",
+  "InvalidDepartment": "El valor del departamento no es un valor de enumeración válido.",
+  "InvalidCountryName": "No se encontró el nombre del país.",
+  "CountryNameCouldNotBeValidated": "No se pudo validar el nombre del país.",
+  "InvalidEmailAddress": "El email ingresado es inválido.",
+  "InvalidPurchaseDate": "La fecha ingresada es inválida o tiene más de un año de antigüedad.",
+  "InvalidBrokenValue": "La propiedad Broken no puede ser nula.",
+  "NullBody": "El cuerpo de la solicitud no puede ser nulo.",
+  "GetEntityNotFound": "Error al tratar de obtener un objeto de tipo {0} con Id {1}. No se encontró.",
+  "PutEntityNotFound": "Error al tratar de actualizar un objeto de tipo {0} con Id {1}. No se encontró.",
+  "PostEntitDuplicatedId": "Error al tratar de crear un objeto de tipo {0} con Id {1}. Ya existe otro con el mismo Id.",
+  "DeleteEntityNotFound": "Error al tratar de eliminar un objeto de tipo {0} con Id {1}. No se encontró."
+}

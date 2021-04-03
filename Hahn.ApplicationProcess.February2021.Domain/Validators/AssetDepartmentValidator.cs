@@ -13,7 +13,7 @@ namespace Hahn.Domain.Validators
                 {
                     if (!Enum.IsDefined(typeof(Department), v))
                     {
-                        c.AddFailure("InvalidDepartment", "Value is not a valid Department enum value.");
+                        c.AddFailure("InvalidDepartment");
                     }
                 });
         }

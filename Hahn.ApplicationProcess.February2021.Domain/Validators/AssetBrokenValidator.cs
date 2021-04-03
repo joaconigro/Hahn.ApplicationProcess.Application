@@ -8,8 +8,7 @@ namespace Hahn.Domain.Validators
         {
             RuleFor(broken => broken)
                 .NotNull()
-                .WithErrorCode("AssetBrokenInvalid")
-                .WithMessage("IsBroken property cannot be null.");
+                .WithErrorCode("InvalidBrokenValue");
         }
     }
 }

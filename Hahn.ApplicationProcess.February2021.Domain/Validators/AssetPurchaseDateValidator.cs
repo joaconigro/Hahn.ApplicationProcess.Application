@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Hahn.Domain.Models;
 using System;
 
 namespace Hahn.Domain.Validators
@@ -10,8 +9,7 @@ namespace Hahn.Domain.Validators
         {
             RuleFor(date => date)
                 .GreaterThan(DateTime.Now.AddYears(-1))
-                .WithErrorCode("InvalidPurchaseDate")
-                .WithMessage("The date can't be older than a year.");
+                .WithErrorCode("InvalidPurchaseDate");
         }
     }
 }

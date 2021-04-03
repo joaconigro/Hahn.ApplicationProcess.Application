@@ -30,6 +30,9 @@ namespace Hahn.Web
             //Add Swagger generation
             services.ConfigureSwaggerGen();
 
+            //Add json translations.
+            services.ConfigureJsonTranslations(Configuration);
+
             //Configures de InMemory database
             services.ConfigureInMemoryDatabase();
 
@@ -58,7 +61,7 @@ namespace Hahn.Web
             }
 
             //Add first the exception middleware to catch all the exceptions.
-            app.ConfigureCustomExceptionMiddleware();
+            app.UseCustomExceptionMiddleware();
 
             //Add Http redirection
             app.UseHttpsRedirection();

@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.AspNetCore;
 using FluentValidation.Results;
 using Hahn.Data.HTTPDataAccess;
 using Hahn.Data.Repositories;
@@ -8,6 +7,7 @@ using Hahn.Domain.Validators;
 using Hahn.Web.Dtos;
 using Hahn.Web.Log;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,10 +23,11 @@ namespace Hahn.Web.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AssetController"/> class.
         /// </summary>
-        /// <param name="unitOfWork">The unitOfWork<see cref="IUnitOfWork"/>.</param>
-        /// <param name="log">The log<see cref="ILogManager"/>.</param>
-        public AssetController(IUnitOfWork unitOfWork, ILogManager log) :
-            base(unitOfWork, log)
+        /// <param name="unitOfWork">The unitOfWork <see cref="IUnitOfWork"/>.</param>
+        /// <param name="log">The log manager <see cref="ILogManager"/>.</param>
+        /// <param name="localizer">The localizer <see cref="IStringLocalizer"/>.</param>
+        public AssetController(IUnitOfWork unitOfWork, ILogManager log, IStringLocalizer localizer) :
+            base(unitOfWork, log, localizer)
         {
         }
         #endregion
@@ -39,12 +40,13 @@ namespace Hahn.Web.Controllers
         /// <returns>The <see cref="ValidationResultDto"/>.</returns>
         internal ValidationResultDto GetValidationResultDto(ValidationResult result)
         {
-            return new ValidationResultDto
+            var dto = new ValidationResultDto
             {
                 IsValid = result.IsValid,
-                ErrorCode = result.Errors.FirstOrDefault()?.ErrorCode ?? result.Errors.FirstOrDefault()?.PropertyName,
-                ErrorMessage = result.Errors.FirstOrDefault()?.ErrorMessage
+                ErrorCode = result.Errors.FirstOrDefault()?.ErrorCode ?? result.Errors.FirstOrDefault()?.ErrorMessage
             };
+            dto.ErrorMessage = !dto.IsValid ? Localizer[dto.ErrorCode] : null;
+            return dto;
         }
 
         /// <summary>
@@ -72,7 +74,7 @@ namespace Hahn.Web.Controllers
                 {
                     IsValid = false,
                     ErrorCode = "InvalidAssetName",
-                    ErrorMessage = "The name must have 5 characters length or greater."
+                    ErrorMessage = Localizer["InvalidAssetName"]
                 });
             }
             var validator = new AssetNameValidator();
@@ -105,7 +107,7 @@ namespace Hahn.Web.Controllers
                 {
                     IsValid = false,
                     ErrorCode = "InvalidEmailAddress",
-                    ErrorMessage = "The value isn't a valid email address."
+                    ErrorMessage = Localizer["InvalidEmailAddress"]
                 });
             }
             var validator = new AssetEmailAdressValidator();
@@ -147,7 +149,12 @@ namespace Hahn.Web.Controllers
         {
             if (string.IsNullOrEmpty(country))
             {
-                return Ok(new ValidationResultDto { IsValid = false, ErrorCode = "InvalidCountryName", ErrorMessage = "Value is not a valid country name." });
+                return Ok(new ValidationResultDto
+                {
+                    IsValid = false,
+                    ErrorCode = "InvalidCountryName",
+                    ErrorMessage = Localizer["InvalidCountryName"]
+                });
             }
             var url = $"https://restcountries.eu/rest/v2/name/{country}?fullText=true";
             var validator = new AssetCountryValidator(HttpDataAccess.SendRequestAsync(url));
@@ -165,7 +172,10 @@ namespace Hahn.Web.Controllers
             var url = $"https://restcountries.eu/rest/v2/name/{dto.CountryOfDepartment}?fullText=true";
             var assetValidator = new AssetValidator(HttpDataAccess.SendRequestAsync(url));
             var results = await assetValidator.ValidateAsync(new ValidationContext<Asset>(Adapt(dto)));
-            results.AddToModelState(ModelState, null);
+            foreach (var e in results.Errors)
+            {
+                ModelState.AddModelError(e.PropertyName, Localizer[e.ErrorCode ?? e.ErrorMessage]);
+            }
         }
         #endregion
     }

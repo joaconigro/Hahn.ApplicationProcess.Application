@@ -24,11 +24,11 @@ namespace Hahn.Domain.Validators
                     var result = await checker;
                     if (result == false)
                     {
-                        c.AddFailure("InvalidCountryName", "Value is not a valid country name.");
+                        c.AddFailure("InvalidCountryName");
                     }
                     else if (!result.HasValue)
                     {
-                        c.AddFailure("InvalidCountryName", "Country name couldn't be validated.");
+                        c.AddFailure("CountryNameCouldNotBeValidated");
                     }
                 });
         }

@@ -8,8 +8,7 @@ namespace Hahn.Domain.Validators
         {
             RuleFor(id => id)
                 .NotNull()
-                .WithErrorCode("AssetIdInvalid")
-                .WithMessage("Id should not be null.");
+                .WithErrorCode("AssetIdInvalid");
         }
     }
 }

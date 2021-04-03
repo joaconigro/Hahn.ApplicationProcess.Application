@@ -11,22 +11,20 @@ namespace Hahn.Domain.Validators
         {
             RuleFor(a => a.Id)
                 .NotNull()
-                .WithErrorCode("AssetIdInvalid")
-                .WithMessage("Id should not be null.");
+                .WithErrorCode("InvalidAssetId");
 
             RuleFor(a => a.AssetName)
                 .NotNull().WithErrorCode("InvalidAssetName")
                 .NotEmpty().WithErrorCode("InvalidAssetName")
                 .MinimumLength(5)
-                .WithErrorCode("InvalidAssetName")
-                .WithMessage("The name must have 5 characters length or greater.");
+                .WithErrorCode("InvalidAssetName");
 
             RuleFor(a => (int)a.Department)
                 .Custom((v, c) =>
                 {
                     if (!Enum.IsDefined(typeof(Department), v))
                     {
-                        c.AddFailure("InvalidDepartment", "Value is not a valid Department enum value.");
+                        c.AddFailure("InvalidDepartment");
                     }
                 });
 
@@ -34,18 +32,15 @@ namespace Hahn.Domain.Validators
                 .NotNull().WithErrorCode("InvalidEmailAddress")
                 .NotEmpty().WithErrorCode("InvalidEmailAddress")
                 .EmailAddress()
-                .WithErrorCode("InvalidEmailAddress")
-                .WithMessage("The value isn't a valid email address.");
+                .WithErrorCode("InvalidEmailAddress");
 
             RuleFor(a => a.PurchaseDate)
                 .GreaterThan(DateTime.Now.AddYears(-1))
-                .WithErrorCode("InvalidPurchaseDate")
-                .WithMessage("The date can't be older than a year.");
+                .WithErrorCode("InvalidPurchaseDate");
 
             RuleFor(a => a.Broken)
                 .NotNull()
-                .WithErrorCode("AssetBrokenInvalid")
-                .WithMessage("IsBroken property cannot be null.");
+                .WithErrorCode("InvalidBrokenValue");
 
             RuleFor(a => a.CountryOfDepartment)
                 .NotNull().WithErrorCode("InvalidCountryName")
@@ -55,11 +50,11 @@ namespace Hahn.Domain.Validators
                     var result = await action;
                     if (result == false)
                     {
-                        c.AddFailure("InvalidCountryName", "Value is not a valid country name.");
+                        c.AddFailure("InvalidCountryName");
                     }
                     else if (!result.HasValue)
                     {
-                        c.AddFailure("InvalidCountryName", "Country name couldn't be validated.");
+                        c.AddFailure("CountryNameCouldNotBeValidated");
                     }
                 });
         }
