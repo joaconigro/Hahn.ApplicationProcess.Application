@@ -64,9 +64,16 @@ class HttpInterceptors implements Interceptor {
   //Handle the error, concatenating all the error messages and display a message.
   responseError(error) {
     error.clone().json().then(r => {
-      let message = this.i18n.tr('CheckErrors');
-      let errors = Object.keys(r).filter(k => this.i18n.hasKey(k)).map(k => this.i18n.tr(k));
-      message += errors.join(", ")
+      let message = '';
+      if (error.status < 500) {
+        message = this.i18n.tr('CheckErrors');
+        let errors = Object.keys(r).filter(k => this.i18n.hasKey(k)).map(k => this.i18n.tr(k));
+        message += `${errors.join(", ")}.`;
+      } else {
+        message = this.i18n.hasKey(error.status) ? this.i18n.tr(error.status) : `${this.i18n.tr('Error')} ${error.status}`;
+        message += ` ${this.i18n.tr('PleaseContactTheAdmin')}`;
+      }
+      
       this.dialogService.open({
         viewModel: Message,
         model: {

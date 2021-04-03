@@ -40,5 +40,8 @@
   "Department1": "Tienda 1",
   "Department2": "Tienda 2",
   "Department3": "Tienda 3",
-  "Department4": "Estación de mantenimiento"
+  "Department4": "Estación de mantenimiento",
+  "500": "Error interno del servidor.",
+  "503": "El servidor no puede responder.",
+  "PleaseContactTheAdmin": "Por favor póngase en contacto con el administrador."
 }

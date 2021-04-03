@@ -40,5 +40,8 @@
   "Department1": "Store 1",
   "Department2": "Store 2",
   "Department3": "Store 3",
-  "Department4": "Maintenance station"
+  "Department4": "Maintenance station",
+  "500": "Internal Server Error.",
+  "503": "The server cannot handle the request.",
+  "PleaseContactTheAdmin": "Please, contact the site admin."
 }
