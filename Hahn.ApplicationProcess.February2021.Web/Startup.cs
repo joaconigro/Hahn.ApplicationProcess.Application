@@ -78,11 +78,9 @@ namespace Hahn.Web
                 endpoints.MapControllers();
             });
 
-            //Seed the Db if is development environment.
-            if (env.IsDevelopment())
-            {
-                app.SeedDbContext();
-            }
+            //Seed the Db
+            //Just for showing purpose.
+            app.SeedDbContext();
         }
     }
 }

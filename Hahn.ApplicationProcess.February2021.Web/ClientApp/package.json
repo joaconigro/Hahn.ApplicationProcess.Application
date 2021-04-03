@@ -69,7 +69,7 @@
   },
   "scripts": {
     "build": "webpack --env.production --extractCss",
-    "start": "webpack --env.development  --extractCss --watch --hrm=true",
+    "start": "webpack --env.development  --extractCss --watch",
     "build:dev": "webpack --extractCss",
     "analyze": "webpack --env.production --analyze",
     "test": "au test"

@@ -13,6 +13,7 @@
     
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
     <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   
@@ -98,8 +99,7 @@
 
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
-      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
-      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <DistFiles Include="wwwroot\**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -124,6 +124,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Trabajo\Personal Projects\Hahn.ApplicationProcess.Application\Hahn.ApplicationProcess.February2021.Web\Hahn.Web.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591;1723</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DocumentationFile>D:\Trabajo\Personal Projects\Hahn.ApplicationProcess.Application\Hahn.ApplicationProcess.February2021.Web\Hahn.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1591;1723</NoWarn>
   </PropertyGroup>
