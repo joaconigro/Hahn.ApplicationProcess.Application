@@ -61,6 +61,13 @@
     <None Remove="ClientApp\src\interfaces\departments.ts" />
     <None Remove="ClientApp\src\resources\http-service.ts" />
     <None Remove="ClientApp\src\resources\utilities.ts" />
+    <None Remove="Hahn.Web.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Hahn.Web.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

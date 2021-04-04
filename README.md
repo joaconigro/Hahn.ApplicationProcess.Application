@@ -3,8 +3,8 @@
 <p>This is a demo application for Hahn Softwareentwicklung.</p>
 
 <p>If you want to try de web app, simply follow these steps:<br>
-1. Open a command prompt on the Hahn.ApplicationProcess.Application.Web<br>
-2. Run the command `docker-compose up` (You need to have Docker installed on your computer). This command will build the app in production mode, so Swagger UI will not work.<br>
+1. Open a command prompt on the Hahn.ApplicationProcess.Application.Web.<br>
+2. Run the command `docker-compose up` (You need to have Docker installed on your computer). This command will build the app in Development mode, so Swagger UI will work. If you want to run in production mode, change the argumente ASPNETCORE_ENVIRONMENT in the docker-compose file to 'Production'.<br>
 3. Open your browser and go to localhost:8080.<br>
 </p>
 

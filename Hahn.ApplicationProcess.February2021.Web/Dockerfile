@@ -18,15 +18,19 @@ WORKDIR /src
 COPY ["Hahn.ApplicationProcess.February2021.Web/Hahn.ApplicationProcess.February2021.Web.csproj", "Hahn.ApplicationProcess.February2021.Web/"]
 RUN dotnet restore "Hahn.ApplicationProcess.February2021.Web/Hahn.ApplicationProcess.February2021.Web.csproj"
 COPY . .
+WORKDIR "/src/Hahn.ApplicationProcess.February2021.Web/ClientApp"
+RUN npm install
+RUN npm build
 WORKDIR "/src/Hahn.ApplicationProcess.February2021.Web"
-RUN rm -rf wwwroot/dist
-RUN rm wwwroot/index.html
 RUN dotnet build "Hahn.ApplicationProcess.February2021.Web.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Hahn.ApplicationProcess.February2021.Web.csproj" -c Release -o /app/publish
 
 FROM base AS final
+ARG ASPNETCORE_ENVIRONMENT
+ENV ASPNETCORE_ENVIRONMENT $ASPNETCORE_ENVIRONMENT
+RUN echo "ASPNETCORE_ENVIRONMENT: $ASPNETCORE_ENVIRONMENT"
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Hahn.Web.dll"]

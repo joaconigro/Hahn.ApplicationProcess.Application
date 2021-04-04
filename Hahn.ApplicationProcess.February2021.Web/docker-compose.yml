@@ -4,5 +4,7 @@ services:
         build:
           context: ../
           dockerfile: Hahn.ApplicationProcess.February2021.Web/Dockerfile
+          args:
+            - ASPNETCORE_ENVIRONMENT=Development
         ports:
             - 8080:80
