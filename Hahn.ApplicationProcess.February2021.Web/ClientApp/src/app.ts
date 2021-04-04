@@ -1,5 +1,5 @@
 import { autoinject  } from 'aurelia-framework';
-import { Router, RouterConfiguration } from 'aurelia-router';
+import { Router, RouterConfiguration, NavigationInstruction, RouteConfig } from 'aurelia-router';
 import { PLATFORM } from 'aurelia-pal';
 import { I18NService } from './resources/i18n-service';
 
@@ -26,6 +26,12 @@ export class App {
         title: this.i18.tr('Details')
       }
     ]);
+
+    const handleUnknownRoutes = (instruction: NavigationInstruction): RouteConfig => {
+      return { route: 'not-found', moduleId: PLATFORM.moduleName('./notfound/pagenotfound') };
+    }
+
+    config.mapUnknownRoutes(handleUnknownRoutes);
     this.router = router;
   }
 }

@@ -43,5 +43,9 @@
   "Department4": "Maintenance station",
   "500": "Internal Server Error.",
   "503": "The server cannot handle the request.",
-  "PleaseContactTheAdmin": "Please, contact the site admin."
+  "PleaseContactTheAdmin": "Please, contact the site admin.",
+  "PageNotFound": "Page not found",
+  "PageNotFoundMessage": "Oops! The page you looking for does not exists.",
+  "AssetCreated": "The asset was successfully saved.",
+  "Success": "Success"
 }

@@ -43,5 +43,9 @@
   "Department4": "Estación de mantenimiento",
   "500": "Error interno del servidor.",
   "503": "El servidor no puede responder.",
-  "PleaseContactTheAdmin": "Por favor póngase en contacto con el administrador."
+  "PleaseContactTheAdmin": "Por favor póngase en contacto con el administrador.",
+  "PageNotFound": "No se encontró la página",
+  "PageNotFoundMessage": "Oops! La página que estás buscando no existe.",
+  "AssetCreated": "El activo fue guardado exitosamente.",
+  "Success":  "Exito"
 }

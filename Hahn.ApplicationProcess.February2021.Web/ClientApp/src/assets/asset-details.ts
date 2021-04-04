@@ -9,6 +9,7 @@ import { I18NService } from '../resources/i18n-service';
 import { Router } from 'aurelia-router';
 import { DialogService } from 'aurelia-dialog';
 import { Confirm } from '../dialogs/confirm';
+import { Message } from '../dialogs/message';
 
 @autoinject
 export class AssetDetails {
@@ -102,6 +103,7 @@ export class AssetDetails {
       //If is a new asset, will send a post request, and if success will navigate to the new asset page.
       const item = await this.http.post<IAsset>(`${this.baseUrl}`, this.asset);
       if (item) {
+        this.dialogService.open({ viewModel: Message, model: { title: this.i18n.tr('Success'), message: this.i18n.tr('AssetCreated') }, lock: true });
         this.router.navigateToRoute('asset', { id: item.id });
       }
     }
