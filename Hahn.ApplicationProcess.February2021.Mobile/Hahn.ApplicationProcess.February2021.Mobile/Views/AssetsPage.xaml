@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hahn.Mobile.Views.AssetsPage"
+             xmlns:resources="clr-namespace:Hahn.Mobile.Properties"
+             xmlns:conv="clr-namespace:Hahn.Mobile.Converters"
+             xmlns:fa="clr-namespace:FontAwesome"
+             Title="{x:Static resources:Resources.Assets}">
+
+    <ContentPage.Resources>
+
+
+        <ResourceDictionary>
+            <Style x:Key="NameLabel" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+            </Style>
+
+            <Style x:Key="FrameCardViewStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="5" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="OutlineColor" Value="LightGray" />
+                <Setter Property="BorderColor" Value="LightGray" />
+                <Setter Property="HasShadow" Value="True" />
+            </Style>
+
+            <Style x:Key="itemsCardViewGridStyle" TargetType="Grid">
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+
+            <conv:IntToDepartmentConverter x:Key="DepartmentConverter"/>
+            <conv:DateFormatConverter x:Key="DateConverter"/>
+            <conv:BooleanToBrokenConverter x:Key="BrokenConverter"/>
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding AddCommand}" Text="{x:Static resources:Resources.AddAsset}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" >
+           
+            <RefreshView Padding="10" IsRefreshing="{Binding IsBusy, Mode=OneWay}" Command="{Binding RefreshCommand}">
+                <CollectionView  SelectionMode="Single" ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                <Frame Style="{StaticResource FrameCardViewStyle}">
+                                    <Grid Style="{StaticResource itemsCardViewGridStyle}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label Text="{Binding AssetName}" Grid.RowSpan="2" Style="{StaticResource NameLabel}" />
+                                        
+                                        <Label Text="{Binding Department, Converter={StaticResource DepartmentConverter}}" 
+                                               Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" />
+                                        
+                                        <Label Text="{Binding CountryOfDepartment}" Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+                                        
+                                        <Label Text="{Binding EmailAddressOfDepartment}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" />
+                                        
+                                        <Label Text="{Binding PurchaseDate, Converter={StaticResource DateConverter}}" 
+                                               Grid.Row="2" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+
+                                        <Label Text="{Binding Broken, Converter={StaticResource BrokenConverter}}"
+                                               IsVisible="{Binding Broken}"
+                                               Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}" />
+                                    </Grid>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+        
+        
+    </ContentPage.Content>
+</ContentPage>

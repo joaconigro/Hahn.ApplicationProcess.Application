@@ -2,9 +2,14 @@ version: "3"
 services:
     hahn:
         build:
-          context: ../
-          dockerfile: Hahn.ApplicationProcess.February2021.Web/Dockerfile
-          args:
-            - ASPNETCORE_ENVIRONMENT=Development
+            context: ../
+            dockerfile: Hahn.ApplicationProcess.February2021.Web/Dockerfile
+            args:
+                - ASPNETCORE_ENVIRONMENT=Development
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.50'
+                    memory: 500M
         ports:
             - 8080:80

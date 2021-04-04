@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Hahn.Mobile;
 
 namespace Hahn.ApplicationProcess.February2021.Mobile.Droid
 {

@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace Hahn.ApplicationProcess.February2021.Mobile
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Hahn.Mobile.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AssetsPage : ContentPage
     {
-        public MainPage()
+        public AssetsPage()
         {
             InitializeComponent();
         }
