@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Hahn.Mobile.Views.AssetDetailPage"
+             xmlns:behaviour="clr-namespace:Hahn.Mobile.Behaviours"
+             xmlns:converter="clr-namespace:Hahn.Mobile.Converters"
+             xmlns:resources="clr-namespace:Hahn.Mobile.Properties">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--Converters-->
+            <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="20" VerticalOptions="StartAndExpand">
+                <Label Text="{Binding Title}" Style="{StaticResource TitleStyle}"/>
+
+                <!--Asset Name-->
+                <Entry Text="{Binding AssetName.Value}" Placeholder="{x:Static resources:Resources.Name}">
+                    <Entry.Behaviors>
+                        <behaviour:EntryLineValidationBehaviour IsValid="{Binding AssetName.IsValid}"/>
+                        <behaviour:EventToCommandBehavior Command="{Binding ValidateStringPropertyCommand}" CommandParameter="{Binding AssetName}" EventName="Unfocused"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label Text="{Binding AssetName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   IsVisible="{Binding AssetName.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                   Style="{StaticResource ErrorTextStyle}"/>
+                <!--Asset Name-->
+
+                <!--Department Name-->
+                <Picker ItemsSource="{Binding Departments, Mode=OneWay}" SelectedIndex="{Binding Department.Value}"/>
+                <!--Department Name-->
+
+                <!--CountryOfDepartment-->
+                <Entry Text="{Binding CountryOfDepartment.Value}" Placeholder="{x:Static resources:Resources.CountryOfDepartment}">
+                    <Entry.Behaviors>
+                        <behaviour:EntryLineValidationBehaviour IsValid="{Binding CountryOfDepartment.IsValid}"/>
+                        <behaviour:EventToCommandBehavior Command="{Binding ValidateStringPropertyCommand}" CommandParameter="{Binding CountryOfDepartment}" EventName="Unfocused"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label Text="{Binding CountryOfDepartment.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   IsVisible="{Binding CountryOfDepartment.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                   Style="{StaticResource ErrorTextStyle}"/>
+                <!--CountryOfDepartment-->
+
+                <!--EmailAddressOfDepartment-->
+                <Entry Text="{Binding EmailAddressOfDepartment.Value}" Placeholder="{x:Static resources:Resources.EmailAddressOfDepartment}" Keyboard="Email">
+                    <Entry.Behaviors>
+                        <behaviour:EntryLineValidationBehaviour IsValid="{Binding EmailAddressOfDepartment.IsValid}"/>
+                        <behaviour:EventToCommandBehavior Command="{Binding ValidateStringPropertyCommand}" CommandParameter="{Binding EmailAddressOfDepartment}" EventName="Unfocused"/>
+                    </Entry.Behaviors>
+                </Entry>
+
+                <Label Text="{Binding EmailAddressOfDepartment.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   IsVisible="{Binding EmailAddressOfDepartment.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                   Style="{StaticResource ErrorTextStyle}"/>
+                <!--EmailAddressOfDepartment-->
+
+                <!--PurchaseDate-->
+                <DatePicker Date="{Binding PurchaseDate.Value}">
+                    <DatePicker.Behaviors>
+                        <behaviour:EventToCommandBehavior Command="{Binding ValidateDatePropertyCommand}" CommandParameter="{Binding PurchaseDate}" EventName="DateSelected"/>
+                    </DatePicker.Behaviors>
+                </DatePicker>
+                <Label Text="{Binding PurchaseDate.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                   IsVisible="{Binding PurchaseDate.IsValid, Converter={StaticResource InverseBoolConverter}}"
+                   Style="{StaticResource ErrorTextStyle}"/>
+                <!--PurchaseDate-->
+
+                <!--Is Broken-->
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox x:Name="IsBrokenCheckbox" IsChecked="{Binding IsBroken}"/>
+                    <Label Text="{x:Static resources:Resources.IsBroken}" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="BrokenLabelTapped"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+                <!--Is Broken-->
+
+                <!--Send button-->
+                <Button Text="{x:Static resources:Resources.Send}" Command="{Binding SubmitCommand}"/>
+
+                <!--Remove button-->
+                <Button Text="{x:Static resources:Resources.Remove}" IsVisible="{Binding IsEditing}"
+                        Command="{Binding DeleteCommand}" BackgroundColor="Red" TextColor="White" />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
