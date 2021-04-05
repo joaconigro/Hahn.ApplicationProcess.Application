@@ -1,6 +1,7 @@
 version: "3"
 services:
     hahn:
+        container_name: Hahn.Web
         build:
             context: ../
             dockerfile: Hahn.ApplicationProcess.February2021.Web/Dockerfile
