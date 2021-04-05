@@ -303,4 +303,7 @@
   <data name="NoAssetsFound" xml:space="preserve">
     <value>No hay ningún activo.</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Crear</value>
+  </data>
 </root>

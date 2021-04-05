@@ -283,4 +283,7 @@
   <data name="NoAssetsFound" xml:space="preserve">
     <value>There isn't any asset.</value>
   </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
 </root>

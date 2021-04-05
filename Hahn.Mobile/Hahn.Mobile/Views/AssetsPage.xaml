@@ -42,17 +42,11 @@
             <conv:DateFormatConverter x:Key="DateConverter"/>
             <conv:BooleanToBrokenConverter x:Key="BrokenConverter"/>
 
-            <!--Icons-->
-            <FontImage x:Key="AddIcon" 
-                       FontFamily="FA5Free-Solid"
-                       Glyph="&#xf067;"
-                       Size="22" Color="White"/>
-
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding AddCommand}" IconImageSource="{StaticResource AddIcon}"/>
+        <ToolbarItem Command="{Binding AddCommand}" Text="{x:Static resources:Resources.Add}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>
