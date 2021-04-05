@@ -19,6 +19,7 @@
 
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="FontSize" Value="14" />
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
             </Style>
 
             <Style x:Key="FrameCardViewStyle" TargetType="Frame">
@@ -57,34 +58,70 @@
                         <DataTemplate>
                             <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
                                 <Frame Style="{StaticResource FrameCardViewStyle}">
-                                    <Grid Style="{StaticResource itemsCardViewGridStyle}">
+                                    <StackLayout Spacing="8">
+                                        <Label Text="{Binding AssetName}" Style="{StaticResource NameLabel}" />
+
+                                            <Grid Style="{StaticResource itemsCardViewGridStyle}">
                                         <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition/>
-                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Label Text="{Binding AssetName}" Grid.RowSpan="2" Style="{StaticResource NameLabel}" />
-                                        
-                                        <Label Text="{Binding Department, Converter={StaticResource DepartmentConverter}}" 
-                                               Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" />
-                                        
-                                        <Label Text="{Binding CountryOfDepartment}" Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" />
-                                        
-                                        <Label Text="{Binding EmailAddressOfDepartment}" Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" />
-                                        
-                                        <Label Text="{Binding PurchaseDate, Converter={StaticResource DateConverter}}" 
-                                               Grid.Row="2" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+                                        <Image Grid.Row="0">
+                                            <Image.Source>
+                                                <FontImageSource Size="Body" FontFamily="FA5Free-Solid" Color="DarkGray" Glyph="{x:Static fa:FontAwesomeIcons.Warehouse}"/>
+                                            </Image.Source>
+                                            </Image>
 
+                                            <Label Text="{Binding Department, Converter={StaticResource DepartmentConverter}}" 
+                                               Grid.Row="0" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+
+
+                                                <Image Grid.Row="1">
+                                            <Image.Source>
+                                                <FontImageSource Size="Body" FontFamily="FA5Free-Solid" Color="LightBlue" Glyph="{x:Static fa:FontAwesomeIcons.GlobeAmericas}"/>
+                                            </Image.Source>
+                                            </Image>
+                                        <Label Text="{Binding CountryOfDepartment}" Grid.Row="1" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+
+
+                                                
+                                                <Image Grid.Row="2">
+                                            <Image.Source>
+                                                <FontImageSource Size="Body" FontFamily="FA5Free-Solid" Color="MediumSeaGreen" Glyph="{x:Static fa:FontAwesomeIcons.Envelope}"/>
+                                            </Image.Source>
+                                            </Image>
+                                        <Label Text="{Binding EmailAddressOfDepartment}" Grid.Row="2" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+
+
+<Image Grid.Row="3">
+                                            <Image.Source>
+                                                <FontImageSource Size="Body" FontFamily="FA5Free-Solid" Color="Orange" Glyph="{x:Static fa:FontAwesomeIcons.CalendarAlt}"/>
+                                            </Image.Source>
+                                            </Image>
+                                        <Label Text="{Binding PurchaseDate, Converter={StaticResource DateConverter}}" 
+                                               Grid.Row="3" Grid.Column="1" Style="{StaticResource LabelStyle}" />
+
+
+                                                  <Image IsVisible="{Binding Broken}" Grid.Row="4">
+                                            <Image.Source>
+                                                <FontImageSource Size="Body" FontFamily="FA5Free-Solid" Color="OrangeRed" Glyph="{x:Static fa:FontAwesomeIcons.Frown}"/>
+                                            </Image.Source>
+                                            </Image>
                                         <Label Text="{Binding Broken, Converter={StaticResource BrokenConverter}}"
                                                IsVisible="{Binding Broken}"
-                                               Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}" />
+                                               Grid.Row="4" Grid.Column="1" Style="{StaticResource LabelStyle}" />
                                     </Grid>
+                                    </StackLayout>
+
+                                
                                 </Frame>
                             </StackLayout>
                         </DataTemplate>

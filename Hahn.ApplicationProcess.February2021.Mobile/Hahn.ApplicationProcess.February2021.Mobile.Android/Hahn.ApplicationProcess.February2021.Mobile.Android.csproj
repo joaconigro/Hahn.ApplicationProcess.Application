@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v10.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -92,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hahn.ApplicationProcess.February2021.Mobile\Hahn.ApplicationProcess.February2021.Mobile.csproj">
-      <Project>{16EFD491-C70C-4AF7-9EC9-121BC32E6578}</Project>
+      <Project>{67AA403B-D9F0-4510-98B7-58CC3726B26E}</Project>
       <Name>Hahn.ApplicationProcess.February2021.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
