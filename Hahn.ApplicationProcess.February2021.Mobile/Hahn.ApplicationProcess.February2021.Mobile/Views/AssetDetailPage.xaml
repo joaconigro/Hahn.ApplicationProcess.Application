@@ -8,9 +8,20 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <!--Converters-->
             <converter:InverseBoolConverter x:Key="InverseBoolConverter"/>
+
+            <!--Icons-->
+            <FontImage x:Key="DeleteIcon" 
+                       FontFamily="FA5Free-Regular"
+                       Glyph="&#xf2ed;"
+                       Size="22" Color="Black" />
         </ResourceDictionary>
     </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem  Command="{Binding DeleteCommand}" IconImageSource="{StaticResource DeleteIcon}"/>
+    </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         <ScrollView>
@@ -31,6 +42,7 @@
                 <!--Asset Name-->
 
                 <!--Department Name-->
+                <Picker ItemsSource="{Binding Departments, Mode=OneWay}" SelectedIndex="{Binding Department.Value}"/>
                 <Entry Text="{Binding Department.Value}" Placeholder="{x:Static resources:Resources.Department}">
                     <Entry.Behaviors>
                         <behaviour:EntryLineValidationBehaviour IsValid="{Binding Department.IsValid}"/>

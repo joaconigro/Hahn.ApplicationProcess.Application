@@ -13,9 +13,9 @@ namespace Hahn.Mobile.Services
             return await HttpHelper.SendRequestAsync<T>(url, HttpMethod.Post, item);
         }
 
-        public async Task<bool> DeleteItemAsync(string url, string id)
+        public async Task<T> DeleteItemAsync<T>(string url, string id)
         {
-            return await HttpHelper.SendRequestAsync<bool>($"{url}/{id}", HttpMethod.Delete);
+            return await HttpHelper.SendRequestAsync<T>($"{url}/{id}", HttpMethod.Delete);
         }
 
         public async Task<T> GetItemAsync<T>(string url, string id)

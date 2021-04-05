@@ -3,8 +3,12 @@ using Hahn.Mobile.Services;
 using Hahn.Mobile.Validators;
 using Hahn.Mobile.Validators.Rules;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hahn.Mobile.Properties;
+using System.Linq;
+using Hahn.Mobile.Helpers;
+using Xamarin.Forms;
 
 namespace Hahn.Mobile.ViewModels
 {
@@ -12,7 +16,7 @@ namespace Hahn.Mobile.ViewModels
     {
         private AssetDto asset;
         private int assetId;
-        private bool isEditing;
+        private Command _deleteCommand;
 
         public ValidatableObject<string> AssetName { get; set; } = new ValidatableObject<string>();
         public ValidatableObject<string> CountryOfDepartment { get; set; } = new ValidatableObject<string>();
@@ -20,6 +24,13 @@ namespace Hahn.Mobile.ViewModels
         public ValidatableObject<DateTime> PurchaseDate { get; set; } = new ValidatableObject<DateTime>();
         public ValidatableObject<string> EmailAddressOfDepartment { get; set; } = new ValidatableObject<string>();
         public bool IsBroken { get; set; }
+
+        public string[] Departments => Enumerable.Range(0, 5).Select(i => ResourceHelper.GetString($"Department{i}")).ToArray();
+
+        public Command DeleteCommand => _deleteCommand ??= new Command(async () => await DeleteAsset());
+
+        public bool IsEditing { get; private set; }
+
 
         public AssetDetailViewModel(INavService nav, IHttpService http) : base(nav, http)
         {
@@ -31,7 +42,7 @@ namespace Hahn.Mobile.ViewModels
             if (asset != null)
             {
                 assetId = asset.Id;
-                isEditing = true;
+                IsEditing = true;
                 Title = asset.AssetName;
                 AssetName.Value = asset.AssetName;
                 CountryOfDepartment.Value = asset.CountryOfDepartment;
@@ -43,8 +54,9 @@ namespace Hahn.Mobile.ViewModels
             else
             {
                 assetId =0;
-                isEditing = false;
+                IsEditing = false;
                 Title = Resources.AddAsset;
+                Department.Value = 0;
                 PurchaseDate.Value = DateTime.Now;
             }
             
@@ -97,7 +109,7 @@ namespace Hahn.Mobile.ViewModels
             };
 
             AssetDto result;
-            if (isEditing)
+            if (IsEditing)
             {
                 result = await Http.UpdateItemAsync("asset", asset);
             }
@@ -109,6 +121,18 @@ namespace Hahn.Mobile.ViewModels
             if (result != null)
             {
                 await NavService.GoBack();
+            }
+        }
+
+        async Task DeleteAsset()
+        {
+            if (IsEditing)
+            {
+                var result = await Http.DeleteItemAsync<AssetDto>("asset", assetId.ToString());
+                if (result != null)
+                {
+                    await NavService.GoBack();
+                }
             }
         }
     }

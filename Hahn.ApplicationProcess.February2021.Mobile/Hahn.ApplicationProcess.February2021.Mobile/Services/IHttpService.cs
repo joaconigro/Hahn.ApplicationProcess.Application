@@ -7,7 +7,7 @@ namespace Hahn.Mobile.Services
     public interface IHttpService
     {
         Task<T> AddItemAsync<T>(string url, T item);
-        Task<bool> DeleteItemAsync(string url, string id);
+        Task<T> DeleteItemAsync<T>(string url, string id);
         Task<T> GetItemAsync<T>(string url, string id);
         Task<T> GetItemAsync<T>(string url, Dictionary<string, string> parameters);
         Task<bool> ExistsAsync(string url, Dictionary<string, string> parameters);

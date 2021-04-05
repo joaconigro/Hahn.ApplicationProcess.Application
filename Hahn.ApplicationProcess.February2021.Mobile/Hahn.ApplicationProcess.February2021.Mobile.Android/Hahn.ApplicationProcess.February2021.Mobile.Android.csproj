@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hahn.ApplicationProcess.February2021.Mobile\Hahn.ApplicationProcess.February2021.Mobile.csproj">
-      <Project>{67AA403B-D9F0-4510-98B7-58CC3726B26E}</Project>
+      <Project>{67aa403b-d9f0-4510-98b7-58cc3726b26e}</Project>
       <Name>Hahn.ApplicationProcess.February2021.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
