@@ -109,7 +109,7 @@
     <!-- Include the newly-built files in the publish output -->
     <ItemGroup>
       <DistFiles Include="wwwroot\**" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       </ResolvedFileToPublish>
@@ -141,4 +141,5 @@
     <DocumentationFile>D:\Trabajo\Personal Projects\Hahn.ApplicationProcess.Application\Hahn.ApplicationProcess.February2021.Web\Hahn.Web.xml</DocumentationFile>
     <NoWarn>1701;1702;1591;1723</NoWarn>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'Hahn.ApplicationProcess.February2021.Web' " />
 </Project>
