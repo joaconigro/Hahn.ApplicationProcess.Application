@@ -216,6 +216,7 @@ export class AssetDetails {
         .withMessageKey('InvalidEmailAddress').on(this)
       .ensure('purchaseDate')
         .required().withMessageKey('FieldRequired').then()
+        .matches(/^(\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})$/).withMessageKey('InvalidFormat').then()
         .satisfies(v => this.http.validate(`api/Asset/validateDate?date=${(stringUtcToDate(v) as Date).toJSON()}`))
         .withMessageKey('InvalidPurchaseDate').on(this);
   }
