@@ -5,7 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
-namespace Hahn.ApplicationProcess.February2021.Mobile.iOS
+namespace Hahn.Mobile.iOS
 {
     public class Application
     {

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
-using Hahn.Mobile;
 using UIKit;
 
-namespace Hahn.ApplicationProcess.February2021.Mobile.iOS
+namespace Hahn.Mobile.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
