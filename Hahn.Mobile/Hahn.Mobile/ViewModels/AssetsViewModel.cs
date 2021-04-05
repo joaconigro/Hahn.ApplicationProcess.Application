@@ -1,5 +1,4 @@
 ﻿using Hahn.Mobile.Dtos;
-using Hahn.Mobile.Helpers;
 using Hahn.Mobile.Services;
 using System;
 using System.Collections.Generic;
@@ -15,12 +14,21 @@ namespace Hahn.Mobile.ViewModels
         private readonly uint pageSize;
         private uint pageNumber;
 
-        public AssetsViewModel(INavService nav, IHttpService http) : base(nav, http)
+        public AssetsViewModel(INavService nav, IHttpService http, IDialogService dialog) : base(nav, http, dialog)
         {
             Assets = new RangeObservableCollection<AssetDto>();
-            pageSize = 20;
+            pageSize = 5;
             pageNumber = 1;
             RefreshAssets();
+            nav.OnGoingBack += NavOnGoingBack;
+        }
+
+        private void NavOnGoingBack(object sender, object currentViewmodel)
+        {
+            if (currentViewmodel is AssetsViewModel)
+            {
+                RefreshAssets();
+            }
         }
 
         public RangeObservableCollection<AssetDto> Assets { get; set; }
@@ -33,7 +41,7 @@ namespace Hahn.Mobile.ViewModels
 
         public Command RefreshCommand => _refreshCommand ??= new Command(RefreshAssets);
         public Command LoadMoreCommand => _loadMoreCommand ??= new Command(LoadMoreAssets);
-        public Command AddCommand => _addCommand ??= new Command(async() => await AddAsset());
+        public Command AddCommand => _addCommand ??= new Command(async () => await AddAsset());
 
         public AssetDto SelectedAsset
         {
@@ -49,13 +57,13 @@ namespace Hahn.Mobile.ViewModels
         {
             if (selectedAsset != null)
             {
-               NavService.NavigateTo<AssetDetailViewModel, AssetDto>(selectedAsset);
+                NavService.NavigateTo<AssetDetailViewModel, AssetDto>(selectedAsset);
             }
         }
 
         private async Task AddAsset()
         {
-                await NavService.NavigateTo<AssetDetailViewModel, AssetDto>(null);
+            await NavService.NavigateTo<AssetDetailViewModel, AssetDto>(null);
         }
 
 
@@ -67,7 +75,8 @@ namespace Hahn.Mobile.ViewModels
             IsBusy = true;
             pageNumber = 1;
 
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
                 var result = await LoadAssetsAsync(pageNumber);
                 Assets.AddRange(result);
             });
@@ -79,14 +88,13 @@ namespace Hahn.Mobile.ViewModels
             if (IsBusy) return;
 
             IsBusy = true;
-            pageNumber = 1;
 
-            Task.Run(async () => {
+            Task.Run(async () =>
+            {
                 var result = await LoadAssetsAsync(pageNumber + 1);
-                var filter = result.Where(asset => Assets.FirstOrDefault(a => a.Id == asset.Id) == null);
-                if (filter?.Any() == true)
+                if (result?.Any() == true)
                 {
-                    Assets.AddRange(filter);
+                    Assets.AddRange(result);
                     pageNumber += 1;
                 }
             });
@@ -104,17 +112,6 @@ namespace Hahn.Mobile.ViewModels
             try
             {
                 return await Http.GetItemsAsync<AssetDto>("asset/all", param);
-                //var result = r.Where(asset => Assets.FirstOrDefault(a => a.Id == asset.Id) == null);
-                //if (result?.Any() == true)
-                //{
-                //    Assets.AddRange(r);
-                //    pageNumber += 1;
-                //}
-            }
-            catch (HttpException http)
-            {
-                //TODO: display a message with the error
-
             }
             catch (Exception ex)
             {

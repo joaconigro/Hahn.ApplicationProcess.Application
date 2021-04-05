@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using static Hahn.Mobile.Services.INavService;
 
 namespace Hahn.Mobile.Services
 {
@@ -16,6 +17,8 @@ namespace Hahn.Mobile.Services
         readonly IDictionary<Type, Type> _map = new Dictionary<Type, Type>();
 
         public event PropertyChangedEventHandler CanGoBackChanged;
+
+        public event GoingBackEventHandler OnGoingBack;
 
         public INavigation XamarinFormsNav { get; set; }
 
@@ -27,6 +30,7 @@ namespace Hahn.Mobile.Services
             {
                 await XamarinFormsNav.PopAsync(true);
                 OnCanGoBackChanged();
+                OnGoingBackChanged();
             }
         }
 
@@ -34,32 +38,18 @@ namespace Hahn.Mobile.Services
         {
             var vm = GetViewModel<object>(typeof(TVM), null);
             await NavigateToView(vm);
-
-            //await NavigateToView(typeof(TVM));
-
-            //if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel viewModel)
-            //{
-            //    viewModel.Init();
-            //}
         }
 
         public async Task NavigateTo<TVM, TParameter>(TParameter parameter) where TVM : BaseViewModel
         {
             var vm = GetViewModel(typeof(TVM), parameter);
             await NavigateToView(vm);
-
-            //await NavigateToView(typeof(TVM));
-
-            //if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel<TParameter> viewModel)
-            //{
-            //    viewModel.Init(parameter);
-            //}
         }
 
         object GetViewModel<TParameter>(Type viewModelType, TParameter parameter)
         {
             var vm = AppContainer.Resolve(viewModelType);
-            
+
             if (vm is BaseViewModel<TParameter> viewmodelParam)
             {
                 viewmodelParam.Init(parameter);
@@ -71,7 +61,7 @@ namespace Hahn.Mobile.Services
 
             return vm;
         }
-        
+
         public void RemoveLastView()
         {
             if (XamarinFormsNav.NavigationStack.Count < 2)
@@ -107,24 +97,6 @@ namespace Hahn.Mobile.Services
             await Launcher.OpenAsync(uri);
         }
 
-        async Task NavigateToView(Type viewModelType)
-        {
-            if (!_map.TryGetValue(viewModelType, out Type viewType))
-            {
-                throw new ArgumentException("No view found in view mapping for " + viewModelType.FullName + ".");
-            }
-
-            // Use reflection to get the View's constructor and create an instance of the View
-            var constructor = viewType.GetTypeInfo()
-                                      .DeclaredConstructors
-                                      .FirstOrDefault(dc => !dc.GetParameters().Any());
-            var view = constructor.Invoke(null) as Page;
-            var vm = AppContainer.Resolve(viewModelType);
-
-            view.BindingContext = vm;
-            await XamarinFormsNav.PushAsync(view, true);
-        }
-
         async Task NavigateToView(object vm)
         {
             if (!_map.TryGetValue(vm.GetType(), out Type viewType))
@@ -137,7 +109,7 @@ namespace Hahn.Mobile.Services
                                       .DeclaredConstructors
                                       .FirstOrDefault(dc => !dc.GetParameters().Any());
             var view = constructor.Invoke(null) as Page;
-            
+
             view.BindingContext = vm;
             await XamarinFormsNav.PushAsync(view, true);
         }
@@ -148,5 +120,11 @@ namespace Hahn.Mobile.Services
         }
 
         void OnCanGoBackChanged() => CanGoBackChanged?.Invoke(this, new PropertyChangedEventArgs("CanGoBack"));
+
+        void OnGoingBackChanged()
+        {
+            var vm = XamarinFormsNav.NavigationStack.Last().BindingContext;
+            OnGoingBack?.Invoke(this, vm);
+        }
     }
 }

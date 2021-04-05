@@ -20,6 +20,7 @@ namespace Hahn.Mobile.Bootstrap
             //Register the services
             builder.RegisterType<NavService>().As<INavService>().SingleInstance();
             builder.RegisterType<HttpService>().As<IHttpService>().SingleInstance();
+            builder.RegisterType<DialogService>().As<IDialogService>().SingleInstance();
 
             //Register the view models
             builder.RegisterType<AssetDetailViewModel>();

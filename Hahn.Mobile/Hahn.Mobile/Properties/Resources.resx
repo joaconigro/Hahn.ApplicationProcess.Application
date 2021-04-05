@@ -280,4 +280,7 @@
   <data name="NotValidated" xml:space="preserve">
     <value>It could not be validated.</value>
   </data>
+  <data name="NoAssetsFound" xml:space="preserve">
+    <value>There isn't any asset.</value>
+  </data>
 </root>

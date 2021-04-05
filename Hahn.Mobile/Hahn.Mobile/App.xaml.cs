@@ -2,9 +2,7 @@
 using Hahn.Mobile.Services;
 using Hahn.Mobile.ViewModels;
 using Hahn.Mobile.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace Hahn.Mobile
 {

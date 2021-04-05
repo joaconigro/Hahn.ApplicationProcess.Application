@@ -5,7 +5,8 @@
              xmlns:resources="clr-namespace:Hahn.Mobile.Properties"
              xmlns:conv="clr-namespace:Hahn.Mobile.Converters"
              xmlns:fa="clr-namespace:FontAwesome"
-             Title="{x:Static resources:Resources.Assets}">
+             Title="{x:Static resources:Resources.Assets}"
+             Appearing="OnPageAppearing">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -24,7 +25,7 @@
             <Style x:Key="FrameCardViewStyle" TargetType="Frame">
                 <Setter Property="CornerRadius" Value="5" />
                 <Setter Property="Margin" Value="5" />
-                <Setter Property="Padding" Value="5" />
+                <Setter Property="Padding" Value="10" />
                 <Setter Property="HorizontalOptions" Value="FillAndExpand" />
                 <Setter Property="OutlineColor" Value="LightGray" />
                 <Setter Property="BorderColor" Value="LightGray" />
@@ -45,7 +46,7 @@
             <FontImage x:Key="AddIcon" 
                        FontFamily="FA5Free-Solid"
                        Glyph="&#xf067;"
-                       Size="22" Color="Black" />
+                       Size="22" Color="White"/>
 
         </ResourceDictionary>
     </ContentPage.Resources>
@@ -57,7 +58,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" >
             <RefreshView Padding="10" IsRefreshing="{Binding IsBusy, Mode=OneWay}" Command="{Binding RefreshCommand}">
-                <CollectionView  SelectionMode="Single" ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}">
+                <CollectionView x:Name="AssetsCollectionView" SelectionMode="Single" ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay}"
+                                 RemainingItemsThreshold="0" RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
@@ -128,6 +130,15 @@
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
+
+                    <CollectionView.EmptyView>
+                        <ContentView>
+                            <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                <Label Text="{x:Static resources:Resources.NoAssetsFound}" Margin="10,25,10,10" FontAttributes="Bold" 
+                                       FontSize="18" HorizontalOptions="Fill" HorizontalTextAlignment="Center" />
+                            </StackLayout>
+                        </ContentView>
+                    </CollectionView.EmptyView>
                 </CollectionView>
             </RefreshView>
         </StackLayout>

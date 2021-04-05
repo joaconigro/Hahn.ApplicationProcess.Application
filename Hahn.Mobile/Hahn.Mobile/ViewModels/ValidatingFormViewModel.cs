@@ -9,7 +9,7 @@ namespace Hahn.Mobile.ViewModels
 {
     public abstract class ValidatingFormViewModel<T> : BaseViewModel<T>
     {
-        protected ValidatingFormViewModel(INavService nav, IHttpService http) : base(nav, http)
+        protected ValidatingFormViewModel(INavService nav, IHttpService http, IDialogService dialog) : base(nav, http, dialog)
         {
             AddValidationRules();
             SubmitCommand = new Command(async () => { await OnSubmit(); }, () => AreFieldsValid());

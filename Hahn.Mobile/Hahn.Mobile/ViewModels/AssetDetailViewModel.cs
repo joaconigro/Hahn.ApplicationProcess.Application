@@ -1,13 +1,12 @@
 ﻿using Hahn.Mobile.Dtos;
+using Hahn.Mobile.Helpers;
+using Hahn.Mobile.Properties;
 using Hahn.Mobile.Services;
 using Hahn.Mobile.Validators;
 using Hahn.Mobile.Validators.Rules;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Hahn.Mobile.Properties;
 using System.Linq;
-using Hahn.Mobile.Helpers;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Hahn.Mobile.ViewModels
@@ -32,9 +31,8 @@ namespace Hahn.Mobile.ViewModels
         public bool IsEditing { get; private set; }
 
 
-        public AssetDetailViewModel(INavService nav, IHttpService http) : base(nav, http)
-        {
-        }
+        public AssetDetailViewModel(INavService nav, IHttpService http, IDialogService dialog) : base(nav, http, dialog)
+        { }
 
         public override void Init(AssetDto parameter)
         {
@@ -53,13 +51,13 @@ namespace Hahn.Mobile.ViewModels
             }
             else
             {
-                assetId =0;
+                assetId = 0;
                 IsEditing = false;
                 Title = Resources.AddAsset;
                 Department.Value = 0;
                 PurchaseDate.Value = DateTime.Now;
             }
-            
+
         }
 
         protected override void AddValidationRules()
@@ -95,8 +93,13 @@ namespace Hahn.Mobile.ViewModels
                    && isEmailValid && isDepartmentValid;
         }
 
+        /// <summary>
+        /// Saves the new asset or updates the old one.
+        /// </summary>
+        /// <returns></returns>
         protected override async Task OnSubmit()
         {
+            //Creates a new Dto with the new data.
             var asset = new AssetDto
             {
                 AssetName = AssetName.Value,
@@ -108,31 +111,53 @@ namespace Hahn.Mobile.ViewModels
                 Id = assetId
             };
 
-            AssetDto result;
-            if (IsEditing)
+            try
             {
-                result = await Http.UpdateItemAsync("asset", asset);
-            }
-            else
-            {
-                result = await Http.AddItemAsync("asset", asset);
-            }
+                //Send the request to save/update the asset.
+                AssetDto result;
+                if (IsEditing)
+                {
+                    result = await Http.UpdateItemAsync("asset", asset);
+                }
+                else
+                {
+                    result = await Http.AddItemAsync("asset", asset);
+                }
 
-            if (result != null)
-            {
-                await NavService.GoBack();
-            }
-        }
-
-        async Task DeleteAsset()
-        {
-            if (IsEditing)
-            {
-                var result = await Http.DeleteItemAsync<AssetDto>("asset", assetId.ToString());
+                //Navigates back if result was successful
                 if (result != null)
                 {
                     await NavService.GoBack();
                 }
+            }
+            catch (Exception ex)
+            {
+                OnError(ex);
+            }
+        }
+
+        /// <summary>
+        /// Deletes an asset and navigates back to the Assets Page
+        /// </summary>
+        /// <returns></returns>
+        async Task DeleteAsset()
+        {
+            if (!IsEditing) return;
+
+            try
+            {
+                if (await Dialog.ShowConfirmationAsync(Resources.Remove, Resources.RemoveAssetMessage))
+                {
+                    var result = await Http.DeleteItemAsync<AssetDto>("asset", assetId.ToString());
+                    if (result != null)
+                    {
+                        await NavService.GoBack();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                OnError(ex);
             }
         }
     }

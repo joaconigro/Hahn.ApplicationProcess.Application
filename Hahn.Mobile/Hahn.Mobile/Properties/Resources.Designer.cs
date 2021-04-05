@@ -22,7 +22,7 @@ namespace Hahn.Mobile.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Hahn.Mobile.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Hahn.Mobile.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace Hahn.Mobile.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Internal Server Error..
         /// </summary>
-        internal static string _500 {
+        public static string _500 {
             get {
                 return ResourceManager.GetString("500", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The server cannot handle the request..
         /// </summary>
-        internal static string _503 {
+        public static string _503 {
             get {
                 return ResourceManager.GetString("503", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Add asset.
         /// </summary>
-        internal static string AddAsset {
+        public static string AddAsset {
             get {
                 return ResourceManager.GetString("AddAsset", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Asset.
         /// </summary>
-        internal static string Asset {
+        public static string Asset {
             get {
                 return ResourceManager.GetString("Asset", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The asset was successfully saved..
         /// </summary>
-        internal static string AssetCreated {
+        public static string AssetCreated {
             get {
                 return ResourceManager.GetString("AssetCreated", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Assets.
         /// </summary>
-        internal static string Assets {
+        public static string Assets {
             get {
                 return ResourceManager.GetString("Assets", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Check the following data: .
         /// </summary>
-        internal static string CheckErrors {
+        public static string CheckErrors {
             get {
                 return ResourceManager.GetString("CheckErrors", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Choose....
         /// </summary>
-        internal static string Choose {
+        public static string Choose {
             get {
                 return ResourceManager.GetString("Choose", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Confirmation.
         /// </summary>
-        internal static string Confirmation {
+        public static string Confirmation {
             get {
                 return ResourceManager.GetString("Confirmation", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Country of Department.
         /// </summary>
-        internal static string CountryOfDepartment {
+        public static string CountryOfDepartment {
             get {
                 return ResourceManager.GetString("CountryOfDepartment", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Department.
         /// </summary>
-        internal static string Department {
+        public static string Department {
             get {
                 return ResourceManager.GetString("Department", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to HQ.
         /// </summary>
-        internal static string Department0 {
+        public static string Department0 {
             get {
                 return ResourceManager.GetString("Department0", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Store 1.
         /// </summary>
-        internal static string Department1 {
+        public static string Department1 {
             get {
                 return ResourceManager.GetString("Department1", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Store 2.
         /// </summary>
-        internal static string Department2 {
+        public static string Department2 {
             get {
                 return ResourceManager.GetString("Department2", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Store 3.
         /// </summary>
-        internal static string Department3 {
+        public static string Department3 {
             get {
                 return ResourceManager.GetString("Department3", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Maintenance station.
         /// </summary>
-        internal static string Department4 {
+        public static string Department4 {
             get {
                 return ResourceManager.GetString("Department4", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Details.
         /// </summary>
-        internal static string Details {
+        public static string Details {
             get {
                 return ResourceManager.GetString("Details", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Email address of Department.
         /// </summary>
-        internal static string EmailAddressOfDepartment {
+        public static string EmailAddressOfDepartment {
             get {
                 return ResourceManager.GetString("EmailAddressOfDepartment", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to English.
         /// </summary>
-        internal static string English {
+        public static string English {
             get {
                 return ResourceManager.GetString("English", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string Error {
+        public static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Can&apos;t process sended request. More information:.
         /// </summary>
-        internal static string Error400Message {
+        public static string Error400Message {
             get {
                 return ResourceManager.GetString("Error400Message", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Bad request.
         /// </summary>
-        internal static string Error400Title {
+        public static string Error400Title {
             get {
                 return ResourceManager.GetString("Error400Title", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to You need to authenticate first, before try to make this request. More information:.
         /// </summary>
-        internal static string Error401Message {
+        public static string Error401Message {
             get {
                 return ResourceManager.GetString("Error401Message", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unauthorized.
         /// </summary>
-        internal static string Error401Title {
+        public static string Error401Title {
             get {
                 return ResourceManager.GetString("Error401Title", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to You do not have necessary access level to perform this operation. More information:.
         /// </summary>
-        internal static string Error403Message {
+        public static string Error403Message {
             get {
                 return ResourceManager.GetString("Error403Message", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Forbidden.
         /// </summary>
-        internal static string Error403Title {
+        public static string Error403Title {
             get {
                 return ResourceManager.GetString("Error403Title", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Request returned with no result. More information:.
         /// </summary>
-        internal static string Error404Message {
+        public static string Error404Message {
             get {
                 return ResourceManager.GetString("Error404Message", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Not found.
         /// </summary>
-        internal static string Error404Title {
+        public static string Error404Title {
             get {
                 return ResourceManager.GetString("Error404Title", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to API request may be malformed. More information:.
         /// </summary>
-        internal static string Error405Message {
+        public static string Error405Message {
             get {
                 return ResourceManager.GetString("Error405Message", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Method not allowed.
         /// </summary>
-        internal static string Error405Title {
+        public static string Error405Title {
             get {
                 return ResourceManager.GetString("Error405Title", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to At this time, request can&apos;t be processed because a server error. Please, try again later. More information:.
         /// </summary>
-        internal static string Error500Message {
+        public static string Error500Message {
             get {
                 return ResourceManager.GetString("Error500Message", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Internal server error.
         /// </summary>
-        internal static string Error500Title {
+        public static string Error500Title {
             get {
                 return ResourceManager.GetString("Error500Title", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Please, complete this field..
         /// </summary>
-        internal static string FieldRequired {
+        public static string FieldRequired {
             get {
                 return ResourceManager.GetString("FieldRequired", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The name must have at least five charcters..
         /// </summary>
-        internal static string InvalidAssetName {
+        public static string InvalidAssetName {
             get {
                 return ResourceManager.GetString("InvalidAssetName", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Country name not found..
         /// </summary>
-        internal static string InvalidCountryName {
+        public static string InvalidCountryName {
             get {
                 return ResourceManager.GetString("InvalidCountryName", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid department value..
         /// </summary>
-        internal static string InvalidDepartment {
+        public static string InvalidDepartment {
             get {
                 return ResourceManager.GetString("InvalidDepartment", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid email address format..
         /// </summary>
-        internal static string InvalidEmailAddress {
+        public static string InvalidEmailAddress {
             get {
                 return ResourceManager.GetString("InvalidEmailAddress", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Invalid format..
         /// </summary>
-        internal static string InvalidFormat {
+        public static string InvalidFormat {
             get {
                 return ResourceManager.GetString("InvalidFormat", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to The date entered is invalid or is more than one year old..
         /// </summary>
-        internal static string InvalidPurchaseDate {
+        public static string InvalidPurchaseDate {
             get {
                 return ResourceManager.GetString("InvalidPurchaseDate", resourceCulture);
             }
@@ -423,7 +423,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Is Broken.
         /// </summary>
-        internal static string IsBroken {
+        public static string IsBroken {
             get {
                 return ResourceManager.GetString("IsBroken", resourceCulture);
             }
@@ -432,7 +432,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
-        internal static string Language {
+        public static string Language {
             get {
                 return ResourceManager.GetString("Language", resourceCulture);
             }
@@ -441,7 +441,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Loading....
         /// </summary>
-        internal static string Loading {
+        public static string Loading {
             get {
                 return ResourceManager.GetString("Loading", resourceCulture);
             }
@@ -450,7 +450,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to More info:.
         /// </summary>
-        internal static string MoreInfo {
+        public static string MoreInfo {
             get {
                 return ResourceManager.GetString("MoreInfo", resourceCulture);
             }
@@ -459,7 +459,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
-        internal static string Name {
+        public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
             }
@@ -468,7 +468,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to New asset.
         /// </summary>
-        internal static string NewAsset {
+        public static string NewAsset {
             get {
                 return ResourceManager.GetString("NewAsset", resourceCulture);
             }
@@ -477,16 +477,25 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string No {
+        public static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There isn&apos;t any asset..
+        /// </summary>
+        public static string NoAssetsFound {
+            get {
+                return ResourceManager.GetString("NoAssetsFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to It could not be validated..
         /// </summary>
-        internal static string NotValidated {
+        public static string NotValidated {
             get {
                 return ResourceManager.GetString("NotValidated", resourceCulture);
             }
@@ -495,7 +504,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Body cannot be null..
         /// </summary>
-        internal static string NullBody {
+        public static string NullBody {
             get {
                 return ResourceManager.GetString("NullBody", resourceCulture);
             }
@@ -504,7 +513,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string Ok {
+        public static string Ok {
             get {
                 return ResourceManager.GetString("Ok", resourceCulture);
             }
@@ -513,7 +522,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Please, contact the site admin..
         /// </summary>
-        internal static string PleaseContactTheAdmin {
+        public static string PleaseContactTheAdmin {
             get {
                 return ResourceManager.GetString("PleaseContactTheAdmin", resourceCulture);
             }
@@ -522,7 +531,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Purchase Date (in UTC).
         /// </summary>
-        internal static string PurchaseDate {
+        public static string PurchaseDate {
             get {
                 return ResourceManager.GetString("PurchaseDate", resourceCulture);
             }
@@ -531,7 +540,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Remove.
         /// </summary>
-        internal static string Remove {
+        public static string Remove {
             get {
                 return ResourceManager.GetString("Remove", resourceCulture);
             }
@@ -540,7 +549,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this asset?.
         /// </summary>
-        internal static string RemoveAssetMessage {
+        public static string RemoveAssetMessage {
             get {
                 return ResourceManager.GetString("RemoveAssetMessage", resourceCulture);
             }
@@ -549,7 +558,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
-        internal static string Reset {
+        public static string Reset {
             get {
                 return ResourceManager.GetString("Reset", resourceCulture);
             }
@@ -558,7 +567,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to reset the form?.
         /// </summary>
-        internal static string ResetFormMessage {
+        public static string ResetFormMessage {
             get {
                 return ResourceManager.GetString("ResetFormMessage", resourceCulture);
             }
@@ -567,7 +576,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Send.
         /// </summary>
-        internal static string Send {
+        public static string Send {
             get {
                 return ResourceManager.GetString("Send", resourceCulture);
             }
@@ -576,7 +585,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Spanish.
         /// </summary>
-        internal static string Spanish {
+        public static string Spanish {
             get {
                 return ResourceManager.GetString("Spanish", resourceCulture);
             }
@@ -585,7 +594,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string Success {
+        public static string Success {
             get {
                 return ResourceManager.GetString("Success", resourceCulture);
             }
@@ -594,7 +603,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unknown error.
         /// </summary>
-        internal static string UnknownError {
+        public static string UnknownError {
             get {
                 return ResourceManager.GetString("UnknownError", resourceCulture);
             }
@@ -603,7 +612,7 @@ namespace Hahn.Mobile.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string Yes {
+        public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
             }

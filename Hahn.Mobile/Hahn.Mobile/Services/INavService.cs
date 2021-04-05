@@ -22,5 +22,9 @@ namespace Hahn.Mobile.Services
         Task NavigateToUri(Uri uri);
 
         event PropertyChangedEventHandler CanGoBackChanged;
+
+        event GoingBackEventHandler OnGoingBack;
+
+        delegate void GoingBackEventHandler(object sender, object currentViewmodel);
     }
 }

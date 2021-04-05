@@ -1,9 +1,9 @@
-﻿using Hahn.Mobile.Services;
+﻿using Hahn.Mobile.Properties;
+using Hahn.Mobile.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace Hahn.Mobile.ViewModels
 {
@@ -11,10 +11,12 @@ namespace Hahn.Mobile.ViewModels
     {
         protected IHttpService Http { get; }
         protected INavService NavService { get; private set; }
-        protected BaseViewModel(INavService nav, IHttpService http)
+        protected IDialogService Dialog { get; private set; }
+        protected BaseViewModel(INavService nav, IHttpService http, IDialogService dialog)
         {
             Http = http;
             NavService = nav;
+            Dialog = dialog;
         }
 
         bool isBusy = false;
@@ -48,7 +50,7 @@ namespace Hahn.Mobile.ViewModels
 
         protected void OnError(Exception ex)
         {
-            //Analytics.TrackError(ex);
+            Dialog.ShowAsync(Resources.Error, ex.Message);
         }
 
         protected void OnError(Exception ex, Action action)
@@ -72,7 +74,7 @@ namespace Hahn.Mobile.ViewModels
 
     public class BaseViewModel<T> : BaseViewModel
     {
-        protected BaseViewModel(INavService nav, IHttpService http) : base(nav, http)
+        protected BaseViewModel(INavService nav, IHttpService http, IDialogService dialog) : base(nav, http, dialog)
         { }
 
         public override void Init()

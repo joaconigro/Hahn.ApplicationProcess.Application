@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace Hahn.Mobile.Behaviours
 {
@@ -31,7 +30,6 @@ namespace Hahn.Mobile.Behaviours
                 IsValidBehavior.AssociatedObject.PlaceholderColor = IsValid ? Color.Default : Color.Red;
             }
         }
-
         #endregion
     }
 }

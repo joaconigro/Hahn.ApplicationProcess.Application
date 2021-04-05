@@ -1,8 +1,8 @@
-﻿using Hahn.Mobile.Services;
+﻿using Hahn.Mobile.Helpers;
+using Hahn.Mobile.Properties;
+using Hahn.Mobile.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hahn.Mobile.Helpers;
-using Hahn.Mobile.Properties;
 
 namespace Hahn.Mobile.Validators.Rules
 {
@@ -45,7 +45,7 @@ namespace Hahn.Mobile.Validators.Rules
                 {
                     return Resources.NotValidated;
                 }
-                
+
             }
 
             return string.Empty;
