@@ -99,11 +99,11 @@ namespace Hahn.Mobile.ViewModels
             AssetDto result;
             if (isEditing)
             {
-                result = await Http.AddItemAsync("asset", asset);
+                result = await Http.UpdateItemAsync("asset", asset);
             }
             else
             {
-                result = await Http.UpdateItemAsync("asset", asset);
+                result = await Http.AddItemAsync("asset", asset);
             }
 
             if (result != null)

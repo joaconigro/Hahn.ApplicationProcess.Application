@@ -19,7 +19,7 @@ namespace Hahn.Mobile.ViewModels
         {
             Assets = new RangeObservableCollection<AssetDto>();
             pageSize = 20;
-            pageSize = 1;
+            pageNumber = 1;
             RefreshAssets();
         }
 
@@ -28,10 +28,11 @@ namespace Hahn.Mobile.ViewModels
 
         Command _refreshCommand;
         Command _addCommand;
+        Command _loadMoreCommand;
         private AssetDto selectedAsset;
 
         public Command RefreshCommand => _refreshCommand ??= new Command(RefreshAssets);
-
+        public Command LoadMoreCommand => _loadMoreCommand ??= new Command(LoadMoreAssets);
         public Command AddCommand => _addCommand ??= new Command(async() => await AddAsset());
 
         public AssetDto SelectedAsset
@@ -40,15 +41,15 @@ namespace Hahn.Mobile.ViewModels
             set
             {
                 SetProperty(ref selectedAsset, value);
-                Task.Run(NavigateOnSelection);
+                NavigateOnSelection();
             }
         }
 
-        private async Task NavigateOnSelection()
+        private void NavigateOnSelection()
         {
             if (selectedAsset != null)
             {
-               await NavService.NavigateTo<AssetDetailViewModel, AssetDto>(selectedAsset);
+               NavService.NavigateTo<AssetDetailViewModel, AssetDto>(selectedAsset);
             }
         }
 
@@ -62,29 +63,53 @@ namespace Hahn.Mobile.ViewModels
         {
             if (IsBusy) return;
 
+            Assets.Clear();
             IsBusy = true;
             pageNumber = 1;
 
-            Task.Run(LoadReunionsAsync);
+            Task.Run(async () => {
+                var result = await LoadAssetsAsync(pageNumber);
+                Assets.AddRange(result);
+            });
             IsBusy = false;
         }
 
-        private async Task LoadReunionsAsync()
+        private void LoadMoreAssets()
+        {
+            if (IsBusy) return;
+
+            IsBusy = true;
+            pageNumber = 1;
+
+            Task.Run(async () => {
+                var result = await LoadAssetsAsync(pageNumber + 1);
+                var filter = result.Where(asset => Assets.FirstOrDefault(a => a.Id == asset.Id) == null);
+                if (filter?.Any() == true)
+                {
+                    Assets.AddRange(filter);
+                    pageNumber += 1;
+                }
+            });
+            IsBusy = false;
+        }
+
+        private async Task<IEnumerable<AssetDto>> LoadAssetsAsync(uint pageNum)
         {
             var param = new Dictionary<string, string>
             {
                 {"pageSize" , pageSize.ToString()},
-                {"pageNumber", pageNumber.ToString() }
+                {"pageNumber", pageNum.ToString() }
             };
 
             try
             {
-                var r = await Http.GetItemsAsync<AssetDto>("asset/all", param);
-                if (r?.Any() == true)
-                {
-                    Assets.AddRange(r);
-                    pageNumber += 1;
-                }
+                return await Http.GetItemsAsync<AssetDto>("asset/all", param);
+                //var result = r.Where(asset => Assets.FirstOrDefault(a => a.Id == asset.Id) == null);
+                //if (result?.Any() == true)
+                //{
+                //    Assets.AddRange(r);
+                //    pageNumber += 1;
+                //}
             }
             catch (HttpException http)
             {
@@ -95,6 +120,7 @@ namespace Hahn.Mobile.ViewModels
             {
                 OnError(ex);
             }
+            return new List<AssetDto>();
         }
     }
 }

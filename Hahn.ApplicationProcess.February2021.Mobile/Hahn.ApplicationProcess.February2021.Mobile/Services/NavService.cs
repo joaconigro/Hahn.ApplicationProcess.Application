@@ -32,24 +32,46 @@ namespace Hahn.Mobile.Services
 
         public async Task NavigateTo<TVM>() where TVM : BaseViewModel
         {
-            await NavigateToView(typeof(TVM));
+            var vm = GetViewModel<object>(typeof(TVM), null);
+            await NavigateToView(vm);
 
-            if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel viewModel)
-            {
-                viewModel.Init();
-            }
+            //await NavigateToView(typeof(TVM));
+
+            //if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel viewModel)
+            //{
+            //    viewModel.Init();
+            //}
         }
 
         public async Task NavigateTo<TVM, TParameter>(TParameter parameter) where TVM : BaseViewModel
         {
-            await NavigateToView(typeof(TVM));
+            var vm = GetViewModel(typeof(TVM), parameter);
+            await NavigateToView(vm);
 
-            if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel<TParameter> viewModel)
-            {
-                viewModel.Init(parameter);
-            }
+            //await NavigateToView(typeof(TVM));
+
+            //if (XamarinFormsNav.NavigationStack.Last().BindingContext is BaseViewModel<TParameter> viewModel)
+            //{
+            //    viewModel.Init(parameter);
+            //}
         }
 
+        object GetViewModel<TParameter>(Type viewModelType, TParameter parameter)
+        {
+            var vm = AppContainer.Resolve(viewModelType);
+            
+            if (vm is BaseViewModel<TParameter> viewmodelParam)
+            {
+                viewmodelParam.Init(parameter);
+            }
+            else if (vm is BaseViewModel viewModel)
+            {
+                viewModel.Init();
+            }
+
+            return vm;
+        }
+        
         public void RemoveLastView()
         {
             if (XamarinFormsNav.NavigationStack.Count < 2)
@@ -99,6 +121,23 @@ namespace Hahn.Mobile.Services
             var view = constructor.Invoke(null) as Page;
             var vm = AppContainer.Resolve(viewModelType);
 
+            view.BindingContext = vm;
+            await XamarinFormsNav.PushAsync(view, true);
+        }
+
+        async Task NavigateToView(object vm)
+        {
+            if (!_map.TryGetValue(vm.GetType(), out Type viewType))
+            {
+                throw new ArgumentException("No view found in view mapping for " + vm.GetType().FullName + ".");
+            }
+
+            // Use reflection to get the View's constructor and create an instance of the View
+            var constructor = viewType.GetTypeInfo()
+                                      .DeclaredConstructors
+                                      .FirstOrDefault(dc => !dc.GetParameters().Any());
+            var view = constructor.Invoke(null) as Page;
+            
             view.BindingContext = vm;
             await XamarinFormsNav.PushAsync(view, true);
         }
